@@ -4,8 +4,7 @@ Crowd funding microservices application
 To Run crowdfundingUI , go to the folder , run npm start , it opens UI on port 3000
 to Run Backend API's , go to the respective subfolder in crowdfundingBackend and run mvn spring-boot:run or you can choose IDE like eclipse to run it
 
-Run Api's in the order 
-First service-registry , once this boots up
+First run service-registry , once this boots up
 
 Then you can run all others parallely or sequentially
 
