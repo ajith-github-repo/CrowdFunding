@@ -13,3 +13,4 @@ To Feed Initial data to the application, go to crowdfundingUI/src/dataload and r
 
 You Need Node , maven , java , npm in order for all projects to Boot up successfully.
 
+You Can find LLD ,HLD and flow diagrams in the root folder
