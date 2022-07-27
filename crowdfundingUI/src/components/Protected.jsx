@@ -6,7 +6,7 @@ const Protected = ({ children }) => {
     const constants = new Constants().getConfig();
     const[state,dispatch] = useAppState();
 
-    if(!state.session.isAuthenticated) {return <Navigate to={constants.PATH.DASHBOARD} replace />}
+    if(!state.session.isAuthenticated) {return <Navigate to={constants.PATHS.DASHBOARD} replace />}
     else {console.log(state.session.isAuthenticated)};
  return children;
 };

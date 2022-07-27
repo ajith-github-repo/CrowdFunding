@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.crowdfunding.app.dto.ProjectStatus;
 import com.crowdfunding.app.entity.Contribution;
 import com.crowdfunding.app.entity.Project;
 import com.crowdfunding.app.entity.User;
@@ -23,6 +22,7 @@ import com.crowdfunding.app.service.ProjectService;
 import com.crowdfunding.app.service.UserService;
 import com.crowdfunding.common.dto.ContributionRequestObject;
 import com.crowdfunding.common.dto.ContributionResponseObject;
+import com.crowdfunding.common.dto.ProjectStatus;
 import com.crowdfunding.common.exceptions.RequestNotProperException;
 import com.crowdfunding.common.security.JwtConfig;
 import com.crowdfunding.common.util.DateHelper;
@@ -63,6 +63,8 @@ public class ContributionController {
 		contrb.setUserId(usr.getUserId());
 		contrb.setProjectId(proj.getProjectId());
 		//Adding contribution to project 
+		
+		if(ProjectStatus.ARCHIVED.equals(proj.getStatus()) || ProjectStatus.CLOSED.equals(proj.getStatus())) throw new RequestNotProperException("Not a Open Project to fund");
 		
 		if(proj.getAmountCollected()+contrb.getContributionAmount() >= proj.getAmountRequested()) {
 			proj.setStatus(ProjectStatus.ARCHIVED);

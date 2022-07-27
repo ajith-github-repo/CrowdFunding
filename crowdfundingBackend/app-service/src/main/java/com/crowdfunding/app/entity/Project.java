@@ -19,10 +19,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.crowdfunding.app.dto.ProjectStatus;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.crowdfunding.common.dto.ProjectStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity

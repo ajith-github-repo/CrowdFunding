@@ -43,7 +43,7 @@ const SignIn = ({ handleSignUpPageClick, handleModalClose }) => {
 
         if (currentUserResp.data === null) {dispatchSetAlert( true, res.message, config.ALERT_TYPES.ERROR); return;}
 
-        navigate(config.PATHS.DASHBOARD);
+        //navigate(config.PATHS.DASHBOARD);
         handleModalClose();
         dispatchSetAuthenticatedUser(currentUserResp.data);
         dispatchSetAlert( true, 'Welcome '+currentUserResp.data.firstName, config.ALERT_TYPES.SUCCESS)

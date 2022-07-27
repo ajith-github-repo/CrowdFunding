@@ -50,5 +50,5 @@ async function load(user,project){
 
 
 users.map((data,i) => {
-    if(i != 3) load(data,projects[i]).then(x => console.log(' is complete')).catch(x => console.log(x))
+    load(data,projects[i]).then(x => console.log(' is complete')).catch(x => console.log(x))
 })

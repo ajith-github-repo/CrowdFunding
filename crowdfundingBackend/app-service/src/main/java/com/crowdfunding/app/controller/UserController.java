@@ -134,7 +134,7 @@ public class UserController {
 		
 		Optional<User> userObj = userService.findUserUsingEmail(userEmail);
 		
-		if(!userObj.isPresent()) throw new UserNotFoundException("User Not found, Couldnt Create Project");
+		if(!userObj.isPresent()) throw new UserNotFoundException("User Not found");
 		
 		User usr = userObj.get();
 		

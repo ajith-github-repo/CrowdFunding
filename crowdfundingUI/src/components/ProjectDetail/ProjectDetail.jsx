@@ -26,8 +26,22 @@ const ProjectDetail = () => {
     const dispatchAddNewContribution = addNewContribution(dispatch);
 
     const owner = state.session.currentUser && state.project.selectedProject && state.session.currentUser.userId === state.project.selectedProject.innovator.userId;
-    const projectNotLive = state.project.selectedProject && state.project.selectedProject.status === constants.PROJECT_STATUS_TYPES.PENDING;
+    const projectStatus = state.project.selectedProject && state.project.selectedProject.status;
 
+    let disableButton = true;
+    let message = '';
+    if(projectStatus === constants.PROJECT_STATUS_TYPES.ARCHIVED){ 
+      disableButton = true;
+      message = 'Target Achieved';
+    }else if(projectStatus === constants.PROJECT_STATUS_TYPES.CLOSE){
+      disableButton = true;
+      message = 'Closed for funding';
+    }else{
+        message = 'Make it Live';
+        if(owner) disableButton = false;
+    }
+
+    
     useEffect(() => {
         
         const projects = state.project.projects;
@@ -57,11 +71,7 @@ const ProjectDetail = () => {
             dispatchShowSignInModal();
         }else{
             //VALIDATE
-
-            if(parseInt(contributionAmt) <= 0 && state.project.selectedProject && state.project.selectedProject.projectId && state.session.currentUser && state.session.currentUser.userId){
-               dispatchSetAlert(true,'Invalid data, Please check',constants.ALERT_TYPES.ERROR);
-               return;
-            }
+            if(parseInt(contributionAmt) <= 0) {dispatchSetAlert(true,'Please Enter a valid amount',constants.ALERT_TYPES.ERROR); return;};
 
             contributeToProject({
                 contributionAmount:parseInt(contributionAmt),
@@ -69,11 +79,12 @@ const ProjectDetail = () => {
                 contributorId:state.session.currentUser.userId, 
             }).then(resp => {
                 if(!resp.data) dispatchSetAlert(true,'Some Issue With Contribution,'+resp.message,constants.ALERT_TYPES.ERROR);
-                
+                setContributionAmt(0);
+                dispatchSetAlert(true,'Contributed Successfully',constants.ALERT_TYPES.SUCCESS);
                 fetchProject(state.project.selectedProject.projectId).then(response => {
                     if(response.data){
                         dispatchSetSelectedProject(response.data);
-                        dispatchSetAlert(true,'Contributed Successfully'+resp.message,constants.ALERT_TYPES.SUCCESS);
+                        dispatchAddNewProject(response.data);
                     }else{
                         dispatchSetAlert(true,'Coulnot update project details '+resp.message,constants.ALERT_TYPES.ERROR);
                     }
@@ -100,6 +111,7 @@ const ProjectDetail = () => {
               dispatchSetSelectedProject(resp.data);
               dispatchAddProject(resp.data);
               dispatchAddNewProject(resp.data);
+              dispatchSetAlert(true,'Project Made Live Successfully',constants.ALERT_TYPES.SUCCESS);
           })
       }
   }
@@ -136,7 +148,7 @@ const ProjectDetail = () => {
                  {renderInnovatorBox(project.innovator)}
                 {renderProjectProgress(project)}
                 {renderProjectDaysLeft(project)}
-                {project.status === 'OPEN' ? renderContributionReady() : renderContributionNotReady()}
+                {project.status === constants.PROJECT_STATUS_TYPES.OPEN ? renderContributionReady() : renderContributionNotReady()}
               </div>
             </div>
           </div>
@@ -144,15 +156,18 @@ const ProjectDetail = () => {
       }
 
     const renderContributionNotReady = () => {
+       
+        
+
         return (
           <div className={styles.contributeSection}>
             <div className={styles.contributionAction}>
               <div className={styles.contrNonActive}>
                 <button
                   className={`${styles.openContrBtn} ${styles.submitBtn}`}
-                  disabled={!owner}
+                  disabled={disableButton}
                   onClick={handleMoveProjectToLive}>
-                  {owner ? `Make it Live` : 'Not Live Yet' }
+                  {message}
                 </button>
               </div>
             </div>
@@ -173,6 +188,7 @@ const ProjectDetail = () => {
                     pattern="^\d+([,.][0-9]{1,2})?$"
                     onChange={(e)=>{setContributionAmt(e.target.value)}}
                     placeholder="Donation Amount"
+                    value={contributionAmt}
                   />
                   <input
                     className={`${styles.submitBtn} ${styles.cntrBtn}`}

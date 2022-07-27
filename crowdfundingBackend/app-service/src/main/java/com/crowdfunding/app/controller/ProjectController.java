@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.crowdfunding.app.dto.ProjectRequestObject;
 import com.crowdfunding.app.dto.ProjectResponseObjectPaginated;
-import com.crowdfunding.app.dto.ProjectStatus;
 import com.crowdfunding.app.entity.Contribution;
 import com.crowdfunding.app.entity.Project;
 import com.crowdfunding.app.entity.User;
@@ -36,6 +35,7 @@ import com.crowdfunding.app.service.ProjectService;
 import com.crowdfunding.app.service.UserService;
 import com.crowdfunding.app.util.ProjectHelper;
 import com.crowdfunding.app.util.ProjectSpecificationsBuilder;
+import com.crowdfunding.common.dto.ProjectStatus;
 import com.crowdfunding.common.exceptions.RequestNotProperException;
 import com.crowdfunding.common.security.JwtConfig;
 import com.crowdfunding.common.util.DateHelper;

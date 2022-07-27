@@ -7,16 +7,14 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.crowdfunding.app.dto.ProjectStatus;
 import com.crowdfunding.app.dto.SearchCriteria;
 import com.crowdfunding.app.entity.Project;
+import com.crowdfunding.common.dto.ProjectStatus;
 
 public class ProjectSpecification implements Specification<Project> {
 
     private SearchCriteria criteria;
 
-    
-    
     public ProjectSpecification(SearchCriteria criteria) {
 		super();
 		this.criteria = criteria;
