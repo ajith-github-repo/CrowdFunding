@@ -1,0 +1,33 @@
+server:
+  port: 9191
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: CLOUD-GATEWAY
+
+ribbon:
+  ConnectTimeout: 120000
+  ReadTimeout: 120000
+  restclient:
+    enabled: true
+zuul:
+  ignoredServices: "*"
+  routes:
+    auth-service: 
+      path: /auth/**
+      service-id: AUTH-SERVICE
+      sensitive-headers: Cookie,Set-Cookie
+      strip-prefix: false
+    payment-service: 
+      path: /api/payments/**
+      service-id: PAYMENT-SERVICE
+      strip-prefix: false
+      sensitive-headers: Cookie,Set-Cookie
+    app-service-users: 
+      path: /api/**
+      service-id: APP-SERVICE
+      strip-prefix: false
+      sensitive-headers: Cookie,Set-Cookie
+    

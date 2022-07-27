@@ -1,0 +1,8 @@
+server:
+  port: 9007
+
+spring:
+  application:
+    name: COMMON-SERVICE
+    zipkin:
+      base-url: http://127.0.0.1:9411/

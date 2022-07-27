@@ -1,0 +1,11 @@
+
+.buttonDiv{
+   position: fixed; 
+   right: 30px;
+   bottom: 80px;
+   height: 20px;
+   font-size: 3rem;
+   z-index: 1;
+   cursor: pointer;
+   color: black;
+}
