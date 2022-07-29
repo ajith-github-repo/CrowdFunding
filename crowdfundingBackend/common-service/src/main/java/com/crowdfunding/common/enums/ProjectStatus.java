@@ -1,4 +1,4 @@
-package com.crowdfunding.common.dto;
+package com.crowdfunding.common.enums;
 
 public enum ProjectStatus {	
 	PENDING("pending"),

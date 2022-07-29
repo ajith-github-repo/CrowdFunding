@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import styles from './Profile.module.css';
 import { useAppState } from '../../contexts/AppState'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -60,13 +59,13 @@ const Profile = () => {
 
     const imageUrl = `https://avatars.dicebear.com/api/human/${currentUser.firstName}.svg`
 
-
     const getContributions = () => {
         let contributionTiles = [];
 
         if(!state.user.contributions || values(state.user.contributions).length === 0) return <h4>No Contributions Found</h4>;
 
         contributionTiles = values(state.user.contributions).map(contribution => {
+            //const projectTitle = getProjectNameFromStore(contributionId);
            return (
             <tr>
                 <td>{contribution.contributionId}</td>
@@ -127,7 +126,7 @@ const Profile = () => {
     let contributionsStr = ''
     let projectsStr = ''
     if(state.user.contributions) contributionsStr = values(state.user.contributions).length + (values(state.user.contributions).length > 1 ? ` Contributions` : ' Contribution')
-    if(state.user.projects) projectsStr = values(state.user.projects).length + (values(state.user.projects).length > 1 ? ` Projects` : ' Project')
+    if(state.user.projects) projectsStr = values(state.user.projects).length + (values(state.user.projects).length > 1 ? ` Owned Projects` : ' Owned Project')
     return (
         <Container>
             <Row>
@@ -160,10 +159,10 @@ const Profile = () => {
                     <Tab  eventKey="Contributions" title="Contributions" >
                         <div style={{width:'100%',display:'flex',flexWrap:'wrap'}}> {getContributions()} </div>
                     </Tab>
-                    <Tab  eventKey="Pending_Projects" title="Pending_Projects" >
+                    <Tab  eventKey="Pending_Projects" title="Owned Projects - Not Live" >
                     <div style={{width:'100%',display:'flex',flexWrap:'wrap'}}>{getPendingProjects()}</div>
                     </Tab>
-                    <Tab  eventKey="AllOtherProjects" title="AllOtherProjects">
+                    <Tab  eventKey="AllOtherProjects" title="Owned Projects - Others">
                     <div style={{width:'100%',display:'flex',flexWrap:'wrap'}}> {getAllButPendingProjects()}</div>
                     </Tab>
                 </Tabs></Col>

@@ -2,7 +2,7 @@ package com.crowdfunding.common.dto;
 
 import com.crowdfunding.common.exceptions.DataValidationException;
 
-public class ContributionRequestObject implements RequestObj{
+public class ContributionRequestDTO implements IRequestObj{
 
 	private Long contributionAmount;
 	private Long contributorId;
@@ -25,14 +25,14 @@ public class ContributionRequestObject implements RequestObj{
 	public void setProjectId(Long projectId) {
 		this.projectId = projectId;
 	}
-	public ContributionRequestObject(Long contributionAmount, Long contributorId, Long projectId) {
+	public ContributionRequestDTO(Long contributionAmount, Long contributorId, Long projectId) {
 		super();
 		this.contributionAmount = contributionAmount;
 		this.contributorId = contributorId;
 		this.projectId = projectId;
 	}
 	
-	public ContributionRequestObject() {
+	public ContributionRequestDTO() {
 
 	}
 	@Override

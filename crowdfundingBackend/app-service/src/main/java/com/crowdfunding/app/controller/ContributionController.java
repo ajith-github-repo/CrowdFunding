@@ -17,19 +17,27 @@ import com.crowdfunding.app.entity.Contribution;
 import com.crowdfunding.app.entity.Project;
 import com.crowdfunding.app.entity.User;
 import com.crowdfunding.app.exceptions.UserNotFoundException;
-import com.crowdfunding.app.service.ContributionService;
-import com.crowdfunding.app.service.ProjectService;
-import com.crowdfunding.app.service.UserService;
-import com.crowdfunding.common.dto.ContributionRequestObject;
-import com.crowdfunding.common.dto.ContributionResponseObject;
-import com.crowdfunding.common.dto.ProjectStatus;
+import com.crowdfunding.app.service.IProjectService;
+import com.crowdfunding.app.service.IUserService;
+import com.crowdfunding.app.service.impl.ContributionService;
+import com.crowdfunding.app.util.ContributionMapper;
+import com.crowdfunding.app.util.ProjectMapper;
+import com.crowdfunding.app.util.UserMapper;
+import com.crowdfunding.common.dto.ContributionRequestDTO;
+import com.crowdfunding.common.dto.ContributionResponseDTO;
+import com.crowdfunding.common.dto.ProjectResponseDTO;
+import com.crowdfunding.common.dto.UserResponseDTO;
+import com.crowdfunding.common.enums.ProjectStatus;
 import com.crowdfunding.common.exceptions.RequestNotProperException;
 import com.crowdfunding.common.security.JwtConfig;
 import com.crowdfunding.common.util.DateHelper;
 import com.crowdfunding.common.util.JWTHelper;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/api/contributions")
+@Slf4j
 public class ContributionController {
 
 	@Autowired
@@ -39,32 +47,44 @@ public class ContributionController {
 	JwtConfig jwtConfig;
 	
 	@Autowired
-	UserService userService;
+	IUserService userService;
 	
 	@Autowired
-	ProjectService projectService;
+	IProjectService projectService;
+	
+	@Autowired
+	ProjectMapper projectMapper;
+	
+	@Autowired
+	ContributionMapper contribMapper;
+	
+	@Autowired
+	UserMapper userMapper;
+	
 	
 	@PostMapping
-	public ResponseEntity<ContributionResponseObject> createContribution(@RequestHeader(name = "authorization") String tokenHeader,@RequestBody ContributionRequestObject contributionIO){
+	public ResponseEntity<ContributionResponseDTO> createContribution(@RequestHeader(name = "authorization") String tokenHeader,@RequestBody ContributionRequestDTO contributionIO){
 	
+		log.info("ProjectController::CREATE_CONTRIBUTION Recieved");
+		 
 		contributionIO.validateInput();
 		
 		User usr = findCurrentlyLoggedInUser(tokenHeader);
 
 		Project proj = projectService.getProjectById(contributionIO.getProjectId());
 		
-		if(usr == null || proj == null) throw new RequestNotProperException("Couldnot create contribution");
+		if(proj == null) {log.info("ProjectController::CREATE_CONTRIBUTION User or Project Not found ,Couldnt Create Contribution"); throw new RequestNotProperException("Couldnot create contribution");};
 
-		Contribution contrb = new Contribution();
-		contrb.setContributionAmount(contributionIO.getContributionAmount());
-		contrb.setContributionTime(DateHelper.convertDateToSQLDate(LocalDate.now().toString()));
+		Contribution contrb = contribMapper.fromRequestDTO(contributionIO);
 		contrb.setContributor(usr);
 		contrb.setProject(proj);
-		contrb.setUserId(usr.getUserId());
-		contrb.setProjectId(proj.getProjectId());
+		
 		//Adding contribution to project 
 		
-		if(ProjectStatus.ARCHIVED.equals(proj.getStatus()) || ProjectStatus.CLOSED.equals(proj.getStatus())) throw new RequestNotProperException("Not a Open Project to fund");
+		if(ProjectStatus.ARCHIVED.equals(proj.getStatus()) || ProjectStatus.CLOSED.equals(proj.getStatus())) {
+			log.info("ProjectController::CREATE_CONTRIBUTION Not a Open Project to Fund "+proj.getProjectId());
+			throw new RequestNotProperException("Not a Open Project to fund");
+		};
 		
 		if(proj.getAmountCollected()+contrb.getContributionAmount() >= proj.getAmountRequested()) {
 			proj.setStatus(ProjectStatus.ARCHIVED);
@@ -94,8 +114,16 @@ public class ContributionController {
 		userService.saveUser(usr);
 		projectService.saveProject(proj);
 		
-		ContributionResponseObject respObj = new ContributionResponseObject(contrb.getContributionId(),contrb.getContributionAmount(),contrb.getContributionTime(),contrb.getProjectId(),contrb.getUserId());
-		return new ResponseEntity<ContributionResponseObject>(respObj,HttpStatus.CREATED);
+		ProjectResponseDTO projResp = projectMapper.toResponseDTO(proj);
+		UserResponseDTO usrResp = userMapper.toResponseDTO(usr);
+		
+		ContributionResponseDTO respObj = contribMapper.toResponseDTO(savedContr);
+		
+		respObj.setProject(projResp);
+		respObj.setContributor(usrResp);
+		
+		log.info("ProjectController::CREATE_CONTRIBUTION SUCCESS ");
+		return new ResponseEntity<ContributionResponseDTO>(respObj,HttpStatus.CREATED);
 	}
 	
 	

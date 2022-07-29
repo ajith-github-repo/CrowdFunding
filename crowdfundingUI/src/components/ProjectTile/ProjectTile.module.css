@@ -42,11 +42,11 @@
 }
 
 .tileLink:hover .progressBar {
-  background-color: #EB1478;
+  background-color: #0EB4B6;
 }
 
 .progressBar {
-  background-color: #EB1478;
+  background-color: #0EB4B6;
   height:0.5rem
 }
 

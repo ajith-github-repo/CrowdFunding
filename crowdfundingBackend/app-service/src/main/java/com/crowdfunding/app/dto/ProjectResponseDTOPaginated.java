@@ -2,24 +2,24 @@ package com.crowdfunding.app.dto;
 
 import java.util.List;
 
-import com.crowdfunding.app.entity.Project;
+import com.crowdfunding.common.dto.ProjectResponseDTO;
 
-public class ProjectResponseObjectPaginated {
+public class ProjectResponseDTOPaginated {
 
 	private boolean isNextAvailable;
 	private int nextResultStartsAt;
-	private List<Project> projects;
+	private List<ProjectResponseDTO> projects;
 	
-	public ProjectResponseObjectPaginated(boolean isNextAvailable, int nextResultStartsAt, List<Project> projects) {
+	public ProjectResponseDTOPaginated(boolean isNextAvailable, int nextResultStartsAt, List<ProjectResponseDTO> projects) {
 		super();
 		this.isNextAvailable = isNextAvailable;
 		this.nextResultStartsAt = nextResultStartsAt;
 		this.projects = projects;
 	}
-	public List<Project> getProjects() {
+	public List<ProjectResponseDTO> getProjects() {
 		return projects;
 	}
-	public void setProjects(List<Project> projects) {
+	public void setProjects(List<ProjectResponseDTO> projects) {
 		this.projects = projects;
 	}
 	public boolean isNextAvailable() {
@@ -35,7 +35,7 @@ public class ProjectResponseObjectPaginated {
 		this.nextResultStartsAt = nextResultStartsAt;
 	}
 	
-	public ProjectResponseObjectPaginated(){
+	public ProjectResponseDTOPaginated(){
 	}
 	
 	

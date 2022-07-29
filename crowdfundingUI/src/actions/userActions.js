@@ -1,7 +1,7 @@
 export const SET_ALL_USER_CONTRIBUTIONS="SET_ALL_USER_CONTRIBUTIONS"
 export const SET_ALL_USER_PROJECTS = 'SET_ALL_USER_PROJECTS';
-export const ADD_NEW_CONTRIBUTION = 'ADD_NEW_CONTRIBUTION';
-export const ADD_NEW_PROJECT = 'ADD_NEW_PROJECT';
+export const ADD_NEW_USER_CONTRIBUTION = 'ADD_NEW_USER_CONTRIBUTION';
+export const ADD_NEW_USER_PROJECT = 'ADD_NEW_USER_PROJECT';
 
 const setAllUserContributionsAction = (payload) => {
     return {
@@ -17,16 +17,16 @@ const setAllUserProjectsAction = (payload) => {
     };
   };
   
-const addNewContributionAction = (payload) => {
+const addNewUserContributionAction = (payload) => {
     return {
-      type: ADD_NEW_CONTRIBUTION,
+      type: ADD_NEW_USER_CONTRIBUTION,
       payload
     };
 };
 
-const addNewProjectAction = (payload) => {
+const addNewUserProjectAction = (payload) => {
     return {
-      type: ADD_NEW_PROJECT,
+      type: ADD_NEW_USER_PROJECT,
       payload
     };
 };
@@ -44,16 +44,16 @@ export const setAllUserProjects = (dispatch)  => (projects) => {
 ))
 }
 
-export const addNewContribution = (dispatch)  => (contribution) => {
+export const addNewUserContribution = (dispatch)  => (contribution) => {
 
-  dispatch(addNewContributionAction(
+  dispatch(addNewUserContributionAction(
     contribution
 ))
 }
 
-export const addNewProject = (dispatch)  => (project) => {
+export const addNewUserProject = (dispatch)  => (project) => {
 
-  dispatch(addNewProjectAction(
+  dispatch(addNewUserProjectAction(
     project
 ))
 }

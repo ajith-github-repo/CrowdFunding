@@ -1,9 +1,9 @@
-import {ADD_NEW_CONTRIBUTION,ADD_NEW_PROJECT,SET_ALL_USER_CONTRIBUTIONS,SET_ALL_USER_PROJECTS} from '../actions/userActions'
+import {ADD_NEW_USER_CONTRIBUTION,ADD_NEW_USER_PROJECT,SET_ALL_USER_CONTRIBUTIONS,SET_ALL_USER_PROJECTS} from '../actions/userActions'
 
 const userReducer = (state, action = {}) => {
     const { payload, type } = action
     switch (type) {
-        case ADD_NEW_CONTRIBUTION: {
+        case ADD_NEW_USER_CONTRIBUTION: {
             let contributionsOld = state.user.contributions
             contributionsOld[payload.contributionId] = payload;
             return {
@@ -11,7 +11,7 @@ const userReducer = (state, action = {}) => {
                 user: { ...state.user, contributions: contributionsOld }
             }
         }
-        case ADD_NEW_PROJECT: {
+        case ADD_NEW_USER_PROJECT: {
             let projectsOld = state.user.projects
             projectsOld[payload.projectId] = payload;
             return {

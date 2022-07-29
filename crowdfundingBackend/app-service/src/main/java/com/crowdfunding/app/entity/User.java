@@ -1,3 +1,4 @@
+
 package com.crowdfunding.app.entity;
 
 import java.io.Serializable;
@@ -15,8 +16,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="user_info")
@@ -38,7 +37,6 @@ public class User implements Serializable{
 	@Column(name = "first_name")
 	private String firstName;
 	
-	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 	        name = "users_funded_projects", 
@@ -47,7 +45,6 @@ public class User implements Serializable{
 	 )
 	private Set<Project> projectsFunded;
 	
-	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(
             name="user_owned_projects",
@@ -56,7 +53,6 @@ public class User implements Serializable{
         )
 	private Set<Project> projectsOwned;
 	
-	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(
             name="user_made_contributions",

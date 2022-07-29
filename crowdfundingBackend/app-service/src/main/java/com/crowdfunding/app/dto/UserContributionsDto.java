@@ -2,35 +2,35 @@ package com.crowdfunding.app.dto;
 
 import java.util.Set;
 
-import com.crowdfunding.app.entity.Contribution;
-import com.crowdfunding.app.entity.User;
+import com.crowdfunding.common.dto.ContributionResponseDTO;
+import com.crowdfunding.common.dto.UserResponseDTO;
 
-public class UserContributionsDto {
+public class UserContributionsDTO {
 
-	private User user;
-	private Set<Contribution> userContributions;
+	private UserResponseDTO user;
+	private Set<ContributionResponseDTO> userContributions;
 	
-	public User getUser() {
+	public UserResponseDTO getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserResponseDTO user) {
 		this.user = user;
 	}
 
-	public Set<Contribution> getUserContributions() {
+	public Set<ContributionResponseDTO> getUserContributions() {
 		return userContributions;
 	}
 
-	public void setUserContributions(Set<Contribution> userContributions) {
+	public void setUserContributions(Set<ContributionResponseDTO> userContributions) {
 		this.userContributions = userContributions;
 	}
 
-	public UserContributionsDto() {
+	public UserContributionsDTO() {
 		
 	}
 	
-	public UserContributionsDto(User user,Set<Contribution> userContributions) {
+	public UserContributionsDTO(UserResponseDTO user,Set<ContributionResponseDTO> userContributions) {
 		super();
 		this.user=user;
 		this.userContributions=userContributions;

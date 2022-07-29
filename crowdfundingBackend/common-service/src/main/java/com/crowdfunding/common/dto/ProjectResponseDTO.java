@@ -1,8 +1,11 @@
 package com.crowdfunding.common.dto;
 
 import java.sql.Date;
+import java.util.Set;
 
-public class ProjectResponseObject{
+import com.crowdfunding.common.enums.ProjectStatus;
+
+public class ProjectResponseDTO{
 
 	private Long projectId;
 	private String title;
@@ -15,9 +18,64 @@ public class ProjectResponseObject{
 	private ProjectStatus status;
 	private String tags;
 	private String imageUrl;
+	private UserResponseDTO innovator;
+	private int noOfContributions;
+	private int noOfFunders;
+    
 	
 	
 	
+	
+	public int getNoOfContributions() {
+		return noOfContributions;
+	}
+
+
+
+	public void setNoOfContributions(int noOfContributions) {
+		this.noOfContributions = noOfContributions;
+	}
+
+
+
+	public UserResponseDTO getInnovator() {
+		return innovator;
+	}
+
+
+
+	public void setInnovator(UserResponseDTO innovator) {
+		this.innovator = innovator;
+	}
+
+
+//	private Set<ContributionResponseDTO> contributions;	
+//	private Set<UserResponseDTO> funders;
+//
+//	public Set<ContributionResponseDTO> getContributions() {
+//		return contributions;
+//	}
+//
+//
+//
+//	public void setContributions(Set<ContributionResponseDTO> contributions) {
+//		this.contributions = contributions;
+//	}
+//
+//
+//
+//	public Set<UserResponseDTO> getFunders() {
+//		return funders;
+//	}
+//
+//
+//
+//	public void setFunders(Set<UserResponseDTO> funders) {
+//		this.funders = funders;
+//	}
+
+
+
 	public Date getExpireDate() {
 		return expireDate;
 	}
@@ -74,9 +132,25 @@ public class ProjectResponseObject{
 	public void setTagLine(String tagLine) {
 		this.tagLine = tagLine;
 	}
+	
+	
 
 
-	public ProjectResponseObject(Long projectId, String title, String tagLine, String description, Long amountRequested,
+
+
+	public int getNoOfFunders() {
+		return noOfFunders;
+	}
+
+
+
+	public void setNoOfFunders(int noOfFunders) {
+		this.noOfFunders = noOfFunders;
+	}
+
+
+
+	public ProjectResponseDTO(Long projectId, String title, String tagLine, String description, Long amountRequested,
 			Long amountCollected, Date expireDate, Date creationDate, ProjectStatus status, String tags,
 			String imageUrl) {
 		super();
@@ -93,7 +167,7 @@ public class ProjectResponseObject{
 		this.imageUrl = imageUrl;
 	}
 	
-	public ProjectResponseObject() {
+	public ProjectResponseDTO() {
 		super();
 		
 	}

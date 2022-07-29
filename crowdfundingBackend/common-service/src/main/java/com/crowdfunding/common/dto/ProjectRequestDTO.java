@@ -1,11 +1,10 @@
-package com.crowdfunding.app.dto;
+package com.crowdfunding.common.dto;
 
 import java.util.List;
 
-import com.crowdfunding.common.dto.RequestObj;
 import com.crowdfunding.common.exceptions.DataValidationException;
 
-public class ProjectRequestObject implements RequestObj{
+public class ProjectRequestDTO implements IRequestObj{
 	
 	private String title;
 	private String description;
@@ -71,7 +70,7 @@ public class ProjectRequestObject implements RequestObj{
 	
 	
 	
-	public ProjectRequestObject(String title, String description, Long amountRequested, String expireDate,
+	public ProjectRequestDTO(String title, String description, Long amountRequested, String expireDate,
 			List<String> tags, String tagline, boolean startGettingFunded, String imageUrl) {
 		super();
 		this.title = title;
@@ -83,7 +82,7 @@ public class ProjectRequestObject implements RequestObj{
 		this.startGettingFunded = startGettingFunded;
 		this.imageUrl = imageUrl;
 	}
-	public ProjectRequestObject() {
+	public ProjectRequestDTO() {
 		
 	}
 	@Override

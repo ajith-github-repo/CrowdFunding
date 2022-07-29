@@ -12,7 +12,6 @@ public class Encoder implements PasswordEncoder{
 
 	@Override
 	public String encode(CharSequence rawPassword) {
-		// TODO Auto-generated method stub
 		
 		 String generatedPassword = null;
 	        try {

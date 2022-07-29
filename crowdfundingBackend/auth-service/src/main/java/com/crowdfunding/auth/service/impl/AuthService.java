@@ -1,4 +1,4 @@
-package com.crowdfunding.auth.service;
+package com.crowdfunding.auth.service.impl;
 
 import java.util.Optional;
 
@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.crowdfunding.auth.dao.AuthDao;
 import com.crowdfunding.auth.entity.UserAuth;
+import com.crowdfunding.auth.service.IAuthService;
 
 @Service
-public class AuthService {
+public class AuthService implements IAuthService{
 
 	@Autowired
 	private AuthDao authDao;

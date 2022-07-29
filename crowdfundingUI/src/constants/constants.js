@@ -9,7 +9,7 @@ function Constants() {
         DESCRIPTION:'description',
         TAGS:'tags',
         TITLE:'title',
-        TAGLINE:'tagline'
+        TAGLINE:'tagLine'
        },
        PROJECT_STATUS_TYPES:{
         PENDING:'PENDING',

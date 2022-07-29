@@ -2,13 +2,13 @@ package com.crowdfunding.common.dto;
 
 import java.sql.Date;
 
-public class ContributionResponseObject {
+public class ContributionResponseDTO {
 
     private Long contributionId;
 	private Long contributionAmount;
 	private Date contributionTime; 
-	private Long projectId;
-	private Long userId;
+	private UserResponseDTO contributor;
+	private ProjectResponseDTO project;
 	
 	public Long getContributionId() {
 		return contributionId;
@@ -28,29 +28,28 @@ public class ContributionResponseObject {
 	public void setContributionTime(Date contributionTime) {
 		this.contributionTime = contributionTime;
 	}
-	public Long getProjectId() {
-		return projectId;
+
+	public UserResponseDTO getContributor() {
+		return contributor;
 	}
-	public void setProjectId(Long projectId) {
-		this.projectId = projectId;
+	public void setContributor(UserResponseDTO contributor) {
+		this.contributor = contributor;
 	}
-	public Long getUserId() {
-		return userId;
+	
+	public ProjectResponseDTO getProject() {
+		return project;
 	}
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setProject(ProjectResponseDTO project) {
+		this.project = project;
 	}
-	public ContributionResponseObject(Long contributionId, Long contributionAmount, Date contributionTime,
-			Long projectId, Long userId) {
+	public ContributionResponseDTO(Long contributionId, Long contributionAmount, Date contributionTime) {
 		super();
 		this.contributionId = contributionId;
 		this.contributionAmount = contributionAmount;
 		this.contributionTime = contributionTime;
-		this.projectId = projectId;
-		this.userId = userId;
 	}
 	
-	public ContributionResponseObject() {
+	public ContributionResponseDTO() {
 		
 	}
 	

@@ -111,6 +111,7 @@ const Header = () => {
         removeFromLocalStorage(constants.TOKEN_KEY);
         dispatchUnsetAuthenticatedUser(false, null);
         navigate(constants.PATHS.DASHBOARD);
+        dispatchSetAlert(true,'Adios Amigo',constants.ALERT_TYPES.SUCCESS);
     } 
 
     const handleDropdown = () => {
@@ -129,22 +130,23 @@ const Header = () => {
             status:constants.PROJECT_STATUS_TYPES.OPEN,
             [state.search.searchBy]:e.target.value
         }).then(resp => {
+    
             if(resp.data){
                 dispatchSetAllProjects(resp.data)
                 if(resp.data.projects && resp.data.projects.length == 0){
-                    dispatchSetAlert({
-                        showAlert:true,
-                        alertMessage:'Couldnt find anything,Please refine your search',
-                        alertSeverity:constants.ALERT_TYPES.WARN
-                    })
+                    dispatchSetAlert(
+                        true,
+                        'Couldnt find anything,Please refine your search',
+                        constants.ALERT_TYPES.WARN
+                    )
                 }
 
             }else{
-                dispatchSetAlert({
-                    showAlert:true,
-                    alertMessage:resp.message,
-                    alertSeverity:''
-                })
+                dispatchSetAlert(
+                    true,
+                    resp.message,
+                    constants.ALERT_TYPES.ERROR
+                )
             }
         })
     },500)
@@ -162,7 +164,7 @@ const Header = () => {
         <div className={styles.header}>
             <nav className={styles.navBar}>
                 <div className={styles.left}>
-                    <Link to="/" className={styles.headingLink}><h1 className={styles.heading}><span className={styles.light}>Crowd</span>Funding</h1></Link>
+                    <Link to={constants.PATHS.DASHBOARD} className={styles.headingLink}><h1 className={styles.heading}><span className={styles.light}>Crowd</span>Funding</h1></Link>
                     {!state.appState.hideSearchBox && <div className={styles.searchForm}>
                         <div className={styles.selectText} onClick={handleDropdown}>
                             <p>{currentlySelected}</p>

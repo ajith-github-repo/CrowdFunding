@@ -17,9 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
-import com.crowdfunding.common.dto.ProjectStatus;
+import com.crowdfunding.common.enums.ProjectStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -65,38 +64,15 @@ public class Project implements Serializable{
 	private String imageUrl;
 	
 
-	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
-	//@JsonBackReference(value="user_projects")
-	//@JoinColumn(name="user_id")
+	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
 	private User innovator;
-	
-	@JsonIgnore
-	//@JsonManagedReference(value = "project_contributions")
+
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "project_id")
     private Set<Contribution> contributions;	
 
-	@JsonIgnore
 	@ManyToMany(mappedBy = "projectsFunded",fetch = FetchType.LAZY)
 	private Set<User> funders;
-
-	@Transient
-	private int noOfFunders;
-	
-	
-	
-	
-	public int getNoOfFunders() {
-		return noOfFunders;
-	}
-
-
-
-	public void setNoOfFunders(int noOfFunders) {
-		this.noOfFunders = noOfFunders;
-	}
-
-
 
 	public Date getExpireDate() {
 		return expireDate;
@@ -134,7 +110,7 @@ public class Project implements Serializable{
 
 	public Project(Long projectId, String title, String tagLine, String description, Long amountRequested,
 			Long amountCollected, Date expireDate, Date creationDate, ProjectStatus status, String tags,
-			String imageUrl, User innovator, int noOfFunders) {
+			String imageUrl, User innovator) {
 		super();
 		this.projectId = projectId;
 		this.title = title;
@@ -148,7 +124,6 @@ public class Project implements Serializable{
 		this.tags = tags;
 		this.imageUrl = imageUrl;
 		this.innovator = innovator;
-		this.noOfFunders = noOfFunders;
 	}
 
 

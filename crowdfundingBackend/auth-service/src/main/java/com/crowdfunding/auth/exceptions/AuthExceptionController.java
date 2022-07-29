@@ -11,7 +11,6 @@ import com.crowdfunding.common.exceptions.RequestNotProperException;
 import lombok.extern.slf4j.Slf4j;
 
 @ControllerAdvice
-@Slf4j
 public class AuthExceptionController {
 	
    @ExceptionHandler(value = UserNotFoundException.class)
@@ -36,7 +35,6 @@ public class AuthExceptionController {
    
    @ExceptionHandler(value = Exception.class)
    public ResponseEntity<Object> exception(Exception exception) {
-	   exception.printStackTrace();
 	   return new ResponseEntity<>("Server Error, Please Try After Sometime", HttpStatus.INTERNAL_SERVER_ERROR);
    }
 }

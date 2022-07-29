@@ -11,7 +11,7 @@ import {getDifferenceBetweenDays,getDisplayDate} from '../../utils/dateUtil';
 import {showSignInModal} from '../../actions/appStateActions';
 import {contributeToProject} from '../../api/payments'
 import Constants from '../../constants/constants';
-import {addNewProject,addNewContribution} from '../../actions/userActions';
+import {addNewUserProject,addNewUserContribution} from '../../actions/userActions';
 
 const ProjectDetail = () => {
     const [state,dispatch] = useAppState();
@@ -22,8 +22,8 @@ const ProjectDetail = () => {
     const dispatchSetAlert = setAlert(dispatch);
     const dispatchShowSignInModal = showSignInModal(dispatch);
     const dispatchAddProject = addProject(dispatch);
-    const dispatchAddNewProject = addNewProject(dispatch);
-    const dispatchAddNewContribution = addNewContribution(dispatch);
+    const dispatchAddNewUserProject = addNewUserProject(dispatch);
+    const dispatchAddNewUserContribution = addNewUserContribution(dispatch);
 
     const owner = state.session.currentUser && state.project.selectedProject && state.session.currentUser.userId === state.project.selectedProject.innovator.userId;
     const projectStatus = state.project.selectedProject && state.project.selectedProject.status;
@@ -50,14 +50,11 @@ const ProjectDetail = () => {
             //fetch project
             fetchProject(projectId).then(resp => {
                 if(resp.data){
-                    dispatchSetSelectedProject(resp.data)
+                    dispatchSetSelectedProject(resp.data);
+                    dispatchAddProject(resp.data);
                 }else{
 
-                    dispatchSetAlert({
-                        showAlert:true,
-                        alertMessage:resp.message,
-                        alertSeverity:''
-                    })
+                    dispatchSetAlert(true,resp.message,constants.ALERT_TYPES.ERROR)
                 }
             })
         }else{
@@ -80,11 +77,13 @@ const ProjectDetail = () => {
             }).then(resp => {
                 if(!resp.data) dispatchSetAlert(true,'Some Issue With Contribution,'+resp.message,constants.ALERT_TYPES.ERROR);
                 setContributionAmt(0);
-                dispatchSetAlert(true,'Contributed Successfully',constants.ALERT_TYPES.SUCCESS);
+                dispatchAddNewUserContribution(resp.data);
+                dispatchSetAlert(true,`Thank you ${state.session.currentUser.firstName} for your valuable contribution`,constants.ALERT_TYPES.SUCCESS);
                 fetchProject(state.project.selectedProject.projectId).then(response => {
                     if(response.data){
                         dispatchSetSelectedProject(response.data);
-                        dispatchAddNewProject(response.data);
+                        dispatchAddNewUserProject(response.data);
+                        dispatchAddProject(response.data);
                     }else{
                         dispatchSetAlert(true,'Coulnot update project details '+resp.message,constants.ALERT_TYPES.ERROR);
                     }
@@ -95,7 +94,6 @@ const ProjectDetail = () => {
 
     const handleMoveProjectToLive = (e) => {
       e.preventDefault();
-      debugger;
       if(!state.session.isAuthenticated){
           dispatchShowSignInModal();
       }else{
@@ -110,14 +108,14 @@ const ProjectDetail = () => {
               if(!resp.data) {dispatchSetAlert(true,'Issue With Updating Project status '+resp.message,constants.ALERT_TYPES.ERROR); return;};
               dispatchSetSelectedProject(resp.data);
               dispatchAddProject(resp.data);
-              dispatchAddNewProject(resp.data);
+              dispatchAddNewUserProject(resp.data);
               dispatchSetAlert(true,'Project Made Live Successfully',constants.ALERT_TYPES.SUCCESS);
           })
       }
   }
     const renderDescription = (description) => {
         return (
-          <div className={styles.campOverview}>
+          <div className={styles.projectOverview}>
             <div className={styles.overviewHeader}>
               <div className={styles.overviewTitle}>Overview</div>
             </div>

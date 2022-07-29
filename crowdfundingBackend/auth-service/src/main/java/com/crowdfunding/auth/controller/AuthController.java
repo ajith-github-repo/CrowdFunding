@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.crowdfunding.auth.dto.UserResponseObject;
 import com.crowdfunding.auth.entity.UserAuth;
 import com.crowdfunding.auth.exceptions.UserAlreadyExistsException;
-import com.crowdfunding.auth.service.AuthService;
+import com.crowdfunding.auth.service.IAuthService;
 import com.crowdfunding.auth.util.Encoder;
-import com.crowdfunding.common.dto.UserRequestObject;
+import com.crowdfunding.auth.util.UserAuthMapper;
+import com.crowdfunding.common.dto.UserRequestDTO;
+import com.crowdfunding.common.dto.UserResponseDTO;
 import com.crowdfunding.common.exceptions.RequestNotProperException;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AuthController {
 
 	@Autowired
-	private AuthService authService;
+	private IAuthService authService;
 	
 	@Autowired
 	private RestTemplate restTemplate;
@@ -35,14 +36,19 @@ public class AuthController {
 	@Autowired
 	private Encoder encoder;
 	
+	@Autowired
+	private UserAuthMapper userMapper;
+	
 	@PostMapping("/signUp")
-	public ResponseEntity<UserResponseObject> saveUser(@RequestBody UserRequestObject userIO) {
-		
+	public ResponseEntity<UserResponseDTO> saveUser(@RequestBody UserRequestDTO userIO) {
+
+		log.info("AuthController::SAVE_USER Recieved");
 		userIO.validateInput();
 		
 		Optional<UserAuth> dbUser = authService.findAuthUsingEmail(userIO.getUserEmail());
 		
 		if(dbUser.isPresent()) {
+			log.info("AuthController::SAVE_USER User Already Exists "+userIO.getUserEmail());
 			throw new UserAlreadyExistsException(userIO.getUserEmail()+" Already Exists");
 		}
 		
@@ -51,17 +57,23 @@ public class AuthController {
 
 		userIO.setPassword("");
 		
-		ResponseEntity<UserResponseObject> resp = restTemplate.postForEntity("http://APP-SERVICE/api/users/", userIO, UserResponseObject.class);
-	    UserResponseObject savedUser = resp.getBody();
+		ResponseEntity<UserResponseDTO> resp = restTemplate.postForEntity("http://APP-SERVICE/api/users/", userIO, UserResponseDTO.class);
+	    UserResponseDTO savedUser = resp.getBody();
 		
-		if(savedUser == null) throw new RequestNotProperException("Couldnt create User");
+		if(savedUser == null) {
+			log.info("AuthController::SAVE_USER Couldnt create user, App Service Returned NULL");
+			throw new RequestNotProperException("Couldnt create User");
 		
-		UserAuth userAuth = new UserAuth();
+		}
+		
+	
+		UserAuth userAuth = userMapper.fromRequestDTO(userIO);
 		userAuth.setPassword(hashedPassword);
 		userAuth.setUserEmail(userIO.getUserEmail());
 		authService.saveAuth(userAuth);
 		
-		return new ResponseEntity<UserResponseObject>(savedUser,HttpStatus.CREATED);
+		log.info("AuthController::SAVE_USER SUCCESS");
+		return new ResponseEntity<UserResponseDTO>(savedUser,HttpStatus.CREATED);
 	}
 	
 }

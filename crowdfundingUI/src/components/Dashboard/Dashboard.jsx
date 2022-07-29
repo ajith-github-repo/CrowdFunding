@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styles from './Dashboard.module.css';
 import ProjectTile from '../ProjectTile';
 import ScrollButton from '../ScrollButton/ScrollButton';
@@ -6,7 +6,7 @@ import {fetchAllProjects} from '../../api/project';
 import {useAppState} from '../../contexts/AppState';
 import {appendMoreToProjects} from '../../actions/projectActions'
 import {setAlert} from '../../actions/alertActions'
-import { constant, values } from 'lodash';
+import { values } from 'lodash';
 import Constants from '../../constants/constants';
 
 const Dashboard = () => {
@@ -19,16 +19,16 @@ const Dashboard = () => {
 
         if(values(state.project.projects).length === 0 && state.project.pagingInfo.nextAvailable){
             fetchAllProjects({
-                maxResults:10,
+                maxResults:constants.PAGINATION.MAX_VALUE_DEFAULT,
                 firstResult:state.project.pagingInfo.nextResultStartsAt
             },{
-                status:'OPEN'
+                status:constants.PROJECT_STATUS_TYPES.OPEN
             }).then(resp => {
                 if(resp.data){
-                    dispatchAppendMoreToProjects(resp.data)
+                    dispatchAppendMoreToProjects(resp.data);
 
                 }else{
-                    
+                    dispatchSetAlert(true,resp.message,constants.ALERT_TYPES.ERROR);   
                 }
             })
         }
@@ -55,11 +55,11 @@ const Dashboard = () => {
                 dispatchAppendMoreToProjects(resp.data)
        
             }else{
-                dispatchSetAlert({
-                    showAlert:true,
-                    alertMessage:resp.message,
-                    alertSeverity:''
-                })
+                dispatchSetAlert(
+                    true,
+                    resp.message,
+                    constants.ALERT_TYPES.ERROR
+                )
             }
         })
 

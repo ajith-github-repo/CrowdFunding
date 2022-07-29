@@ -4,7 +4,7 @@ import com.crowdfunding.common.constants.Constants;
 import com.crowdfunding.common.exceptions.DataValidationException;
 import com.crowdfunding.common.util.RegexHelper;
 
-public class UserRequestObject implements RequestObj{
+public class UserRequestDTO implements IRequestObj{
 
 	private Long userId;
 	private String firstName;
@@ -12,11 +12,11 @@ public class UserRequestObject implements RequestObj{
 	private String userEmail;
 	private String password;
 	
-	public UserRequestObject() {
+	public UserRequestDTO() {
 		
 	}
 	
-	public UserRequestObject(Long userId,String firstName, String lastName, String userEmail,String password) {
+	public UserRequestDTO(Long userId,String firstName, String lastName, String userEmail,String password) {
 		super();
 		this.userId = userId;
 		this.firstName = firstName;

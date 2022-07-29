@@ -11,19 +11,24 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.crowdfunding.auth.entity.UserAuth;
-import com.crowdfunding.auth.service.AuthService;
+import com.crowdfunding.auth.service.IAuthService;
+
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private AuthService authService;
+    private IAuthService authService;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        
+    	log.info("AuthService::LOAD_USER_BY_USERNAME Recieved");
     	UserAuth appUser = authService.findAuthUsingEmail(s).orElseThrow(() -> new UsernameNotFoundException("Username Not Found"));
     	
+    	log.info("AuthService::LOAD_USER_BY_USERNAME Returning");
     	return new User(appUser.getUserEmail(), appUser.getPassword(), new ArrayList<GrantedAuthority>());
     }
 }

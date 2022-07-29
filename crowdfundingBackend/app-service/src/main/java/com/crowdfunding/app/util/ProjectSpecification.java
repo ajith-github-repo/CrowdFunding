@@ -9,11 +9,12 @@ import org.springframework.data.jpa.domain.Specification;
 
 import com.crowdfunding.app.dto.SearchCriteria;
 import com.crowdfunding.app.entity.Project;
-import com.crowdfunding.common.dto.ProjectStatus;
+import com.crowdfunding.common.enums.ProjectStatus;
 
 public class ProjectSpecification implements Specification<Project> {
 
-    private SearchCriteria criteria;
+	private static final long serialVersionUID = -7232745468234862659L;
+	private SearchCriteria criteria;
 
     public ProjectSpecification(SearchCriteria criteria) {
 		super();
@@ -36,8 +37,8 @@ public class ProjectSpecification implements Specification<Project> {
         } 
         else if (criteria.getOperation().equalsIgnoreCase(":")) {
             if (root.get(criteria.getKey()).getJavaType() == String.class) {
-                return builder.like(builder.lower(
-                  root.<String>get(criteria.getKey())), "%" + criteria.getValue().toString().toLowerCase() + "%");
+                return builder.like(
+                  root.<String>get(criteria.getKey()), "%" + criteria.getValue().toString().toLowerCase() + "%");
             } else if(root.get(criteria.getKey()).getJavaType() == ProjectStatus.class){
             	ProjectStatus status;
             	try {
