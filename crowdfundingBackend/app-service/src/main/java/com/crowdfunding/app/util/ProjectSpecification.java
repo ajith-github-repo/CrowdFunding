@@ -37,8 +37,9 @@ public class ProjectSpecification implements Specification<Project> {
         } 
         else if (criteria.getOperation().equalsIgnoreCase(":")) {
             if (root.get(criteria.getKey()).getJavaType() == String.class) {
-                return builder.like(
-                  root.<String>get(criteria.getKey()), "%" + criteria.getValue().toString().toLowerCase() + "%");
+                
+            	return builder.like(builder.lower(root.<String>get(criteria.getKey())), "%" + criteria.getValue().toString().toLowerCase() + "%");
+            	
             } else if(root.get(criteria.getKey()).getJavaType() == ProjectStatus.class){
             	ProjectStatus status;
             	try {

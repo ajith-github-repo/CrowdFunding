@@ -9,7 +9,6 @@ import com.crowdfunding.app.entity.Project;
 import com.crowdfunding.common.dto.ProjectRequestDTO;
 import com.crowdfunding.common.dto.ProjectResponseDTO;
 import com.crowdfunding.common.enums.ProjectStatus;
-import com.crowdfunding.common.exceptions.RequestNotProperException;
 import com.crowdfunding.common.util.DateHelper;
 
 @Component
@@ -22,7 +21,7 @@ public class ProjectMapper {
 		ProjectResponseDTO resp = new ProjectResponseDTO();
 	    resp.setTitle(project.getTitle());
 	    resp.setDescription(project.getDescription());
-	    resp.setTagLine(project.getTagLine());
+	    resp.setTagline(project.getTagline());
 	    resp.setAmountCollected(project.getAmountCollected());
 	    resp.setAmountRequested(project.getAmountRequested());
 	    resp.setCreationDate(project.getCreationDate());
@@ -56,7 +55,7 @@ public class ProjectMapper {
 		project.setAmountCollected(0L);
         project.setCreationDate(DateHelper.convertDateToSQLDate(LocalDate.now().toString()));
 		project.setExpireDate(DateHelper.convertDateToSQLDate(requestObj.getExpireDate()));
-		project.setTagLine(requestObj.getTagline());
+		project.setTagline(requestObj.getTagline());
 		project.setImageUrl(requestObj.getImageUrl());
 	    
 		return project;

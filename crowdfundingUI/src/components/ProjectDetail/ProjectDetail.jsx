@@ -71,9 +71,9 @@ const ProjectDetail = () => {
             if(parseInt(contributionAmt) <= 0) {dispatchSetAlert(true,'Please Enter a valid amount',constants.ALERT_TYPES.ERROR); return;};
 
             contributeToProject({
-                contributionAmount:parseInt(contributionAmt),
-                projectId:state.project.selectedProject.projectId ,
-                contributorId:state.session.currentUser.userId, 
+                amount:parseInt(contributionAmt),
+                payeeId:state.project.selectedProject.projectId ,
+                payerId:state.session.currentUser.userId, 
             }).then(resp => {
                 if(!resp.data) dispatchSetAlert(true,'Some Issue With Contribution,'+resp.message,constants.ALERT_TYPES.ERROR);
                 setContributionAmt(0);

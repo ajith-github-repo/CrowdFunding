@@ -37,7 +37,7 @@ export async function signIn(auth) {
 export async function fetchCurrentUser() {
     let response;
     try{
-       const fetchCurrentUserInfoUrl = `${config.API.BASE_URL}${config.API.USER.USER_SERVICE_BASE_PATH}${config.API.USER.CURRENT_LOGGEDIN_USER_PATH}`
+       const fetchCurrentUserInfoUrl = `${config.API.BASE_URL}${config.API.USER.USER_SERVICE_BASE_PATH}`
         
        response = await axios.get(fetchCurrentUserInfoUrl,{
             headers:{

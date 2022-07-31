@@ -9,7 +9,7 @@ function Constants() {
         DESCRIPTION:'description',
         TAGS:'tags',
         TITLE:'title',
-        TAGLINE:'tagLine'
+        TAGLINE:'tagline'
        },
        PROJECT_STATUS_TYPES:{
         PENDING:'PENDING',
@@ -43,7 +43,6 @@ function Constants() {
         },
         USER:{
             USER_SERVICE_BASE_PATH:process.env.REACT_APP_USER_SERVICE_BASE_PATH,
-            CURRENT_LOGGEDIN_USER_PATH:process.env.REACT_APP_CURRENT_LOGGEDIN_USER_PATH,
             ALL_USER_CONTRIBUTIONS_PATH:process.env.REACT_APP_ALL_USER_CONTRIBUTIONS_PATH,
             ALL_USER_PROJECTS_PATH:process.env.REACT_APP_ALL_USER_PROJECTS_PATH
         },

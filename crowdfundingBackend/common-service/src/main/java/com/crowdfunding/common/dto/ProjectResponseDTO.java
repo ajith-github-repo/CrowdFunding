@@ -1,7 +1,6 @@
 package com.crowdfunding.common.dto;
 
 import java.sql.Date;
-import java.util.Set;
 
 import com.crowdfunding.common.enums.ProjectStatus;
 
@@ -9,7 +8,7 @@ public class ProjectResponseDTO{
 
 	private Long projectId;
 	private String title;
-	private String tagLine;
+	private String tagline;
 	private String description;
 	private Long amountRequested;
 	private Long amountCollected;
@@ -123,14 +122,14 @@ public class ProjectResponseDTO{
 
 
 
-	public String getTagLine() {
-		return tagLine;
+	public String getTagline() {
+		return tagline;
 	}
 
 
 
-	public void setTagLine(String tagLine) {
-		this.tagLine = tagLine;
+	public void setTagline(String tagline) {
+		this.tagline = tagline;
 	}
 	
 	
@@ -150,13 +149,13 @@ public class ProjectResponseDTO{
 
 
 
-	public ProjectResponseDTO(Long projectId, String title, String tagLine, String description, Long amountRequested,
+	public ProjectResponseDTO(Long projectId, String title, String tagline, String description, Long amountRequested,
 			Long amountCollected, Date expireDate, Date creationDate, ProjectStatus status, String tags,
 			String imageUrl) {
 		super();
 		this.projectId = projectId;
 		this.title = title;
-		this.tagLine = tagLine;
+		this.tagline = tagline;
 		this.description = description;
 		this.amountRequested = amountRequested;
 		this.amountCollected = amountCollected;

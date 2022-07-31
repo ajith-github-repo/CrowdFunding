@@ -1,8 +1,6 @@
 package com.crowdfunding.common.dto;
 
-import com.crowdfunding.common.exceptions.DataValidationException;
-
-public class ContributionRequestDTO implements IRequestObj{
+public class ContributionRequestDTO{
 
 	private Long contributionAmount;
 	private Long contributorId;
@@ -35,18 +33,4 @@ public class ContributionRequestDTO implements IRequestObj{
 	public ContributionRequestDTO() {
 
 	}
-	@Override
-	public void validateInput() {
-		if(this.getContributionAmount() == null || this.getContributionAmount() <= 0L)
-			throw new DataValidationException("Contribution cannot be less than zero");
-		
-		if(this.getContributorId() == null)
-			throw new DataValidationException("Contributor Information is Missing");
-		
-		if(this.getProjectId() == null)
-			throw new DataValidationException("Project Info missing from contribution");
-		
-	}
-	
-	
 }

@@ -2,23 +2,26 @@ package com.crowdfunding.app.service;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
-
+import com.crowdfunding.app.dto.ProjectResponseDTOPaginated;
 import com.crowdfunding.app.entity.Project;
+import com.crowdfunding.common.dto.ProjectRequestDTO;
+import com.crowdfunding.common.dto.ProjectResponseDTO;
 
 public interface IProjectService {
 
 	
-	public Project getProjectById(Long projectId);
+	public ProjectResponseDTO fetchProjectById(String projectId);
 
-	public List<Project> getAllProjects();
+	public List<ProjectResponseDTO> getAllProjects();
 
-	public Project saveProject(Project project);
-	public Page<Project> getAllProjectsPaginated(Pageable page);
+	public ProjectResponseDTO createProject(ProjectRequestDTO projectIO,String token);
+	public ProjectResponseDTOPaginated getAllProjectsPaginated(String pagingInfo);
 
-	public Page<Project> findAll(Specification<Project> spec, Pageable page);
+	public ProjectResponseDTOPaginated getAllProjectsPaginatedWithQuery(String pagingInfo,String search);
+	
+	public ProjectResponseDTO updateProjectStatusToLive(String projectId);
 
-	public List<Project> getAllProjectsOwnedByCurrentUser(Long userId);
+	public Project getProjectById(String projectId);
+
+	Project save(Project project);
 }

@@ -7,7 +7,7 @@ const Protected = ({ children }) => {
     const[state,dispatch] = useAppState();
 
     if(!state.session.isAuthenticated) {return <Navigate to={constants.PATHS.DASHBOARD} replace />}
-    else {console.log(state.session.isAuthenticated)};
+    
  return children;
 };
 export default Protected;

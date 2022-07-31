@@ -19,7 +19,7 @@ const ProjectTile = ({ project }) => {
                     <div className={styles.tileInfo}>
                         <div className={styles.tileTitleTagline}>
                             <div>{project.title}</div>
-                            <div>{project.tagLine}</div>
+                            <div>{project.tagline}</div>
                         </div>
                         <div className={styles.tileBottom}>
                             <span>{project.amountCollected}</span>

@@ -61,9 +61,9 @@ async function load(){
                  
 
             response = await axios.post('http://localhost:9191/api/payments/',data = {
-                contributionAmount:Math.ceil(Math.random() * 10000),
-                projectId:projectId,
-                contributorId:userId
+                amount:Math.ceil(Math.random() * 10000),
+                payeeId:projectId,
+                payerId:userId
             },{
                 headers:{
                     'Authorization': `Bearer ${tokens[userId]}`,

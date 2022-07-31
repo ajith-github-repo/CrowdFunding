@@ -1,19 +1,25 @@
 package com.crowdfunding.app.service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 
 import com.crowdfunding.app.entity.User;
+import com.crowdfunding.common.dto.ContributionResponseDTO;
+import com.crowdfunding.common.dto.ProjectResponseDTO;
+import com.crowdfunding.common.dto.UserRequestDTO;
+import com.crowdfunding.common.dto.UserResponseDTO;
 
 public interface IUserService {
-	public User saveUser(User user);
+	public UserResponseDTO saveUser(UserRequestDTO user);
 
-	public User getUserDetails(Long id);
+	public UserResponseDTO getUserDetails(String userId);
 
-	public Optional<User> findUserUsingEmail(String userEmail);
-
-	public List<Long> findUserFundedProjectIds(Long userId);
+	public Set<ContributionResponseDTO> getUserContributions(String tokenHeader,String userId);
 	
+	public Set<ProjectResponseDTO> getAllUserProjects(String tokenHeader,String userId);
 	
-	public List<Long> findUserOwnedProjectIds(Long userId);
+	public UserResponseDTO getCurrentlyLoggedInUserDetails(String tokenHeader); 
+	
+	public User findCurrentlyLoggedInUser(String tokenHeader);
+
+	User save(User user);
 }

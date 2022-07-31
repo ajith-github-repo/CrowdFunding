@@ -37,7 +37,7 @@ public class Project implements Serializable{
 	private String title;
 	
 	@Column(name="tagline")
-	private String tagLine;
+	private String tagline;
 	
 	@Column(name="desc", length = 5000)
 	private String description;
@@ -108,13 +108,13 @@ public class Project implements Serializable{
 		this.creationDate = creationDate;
 	}
 
-	public Project(Long projectId, String title, String tagLine, String description, Long amountRequested,
+	public Project(Long projectId, String title, String tagline, String description, Long amountRequested,
 			Long amountCollected, Date expireDate, Date creationDate, ProjectStatus status, String tags,
 			String imageUrl, User innovator) {
 		super();
 		this.projectId = projectId;
 		this.title = title;
-		this.tagLine = tagLine;
+		this.tagline = tagline;
 		this.description = description;
 		this.amountRequested = amountRequested;
 		this.amountCollected = amountCollected;
@@ -146,7 +146,7 @@ public class Project implements Serializable{
 	@Override
 	public int hashCode() {
 		return Objects.hash(amountCollected, amountRequested, creationDate, description, expireDate, imageUrl,
-				innovator, projectId, status, tagLine, tags, title);
+				innovator, projectId, status, tagline, tags, title);
 	}
 
 
@@ -165,7 +165,7 @@ public class Project implements Serializable{
 				&& Objects.equals(creationDate, other.creationDate) && Objects.equals(description, other.description)
 				&& Objects.equals(expireDate, other.expireDate) && Objects.equals(imageUrl, other.imageUrl)
 				&& Objects.equals(innovator, other.innovator) && Objects.equals(projectId, other.projectId)
-				&& status == other.status && Objects.equals(tagLine, other.tagLine) && Objects.equals(tags, other.tags)
+				&& status == other.status && Objects.equals(tagline, other.tagline) && Objects.equals(tags, other.tags)
 				&& Objects.equals(title, other.title);
 	}
 
@@ -183,14 +183,14 @@ public class Project implements Serializable{
 
 
 
-	public String getTagLine() {
-		return tagLine;
+	public String getTagline() {
+		return tagline;
 	}
 
 
 
-	public void setTagLine(String tagLine) {
-		this.tagLine = tagLine;
+	public void setTagline(String tagline) {
+		this.tagline = tagline;
 	}
 
 

@@ -65,9 +65,8 @@ const Profile = () => {
         if(!state.user.contributions || values(state.user.contributions).length === 0) return <h4>No Contributions Found</h4>;
 
         contributionTiles = values(state.user.contributions).map(contribution => {
-            //const projectTitle = getProjectNameFromStore(contributionId);
            return (
-            <tr>
+            <tr key={contribution.contributionId}>
                 <td>{contribution.contributionId}</td>
                 <td>{contribution.contributionAmount}</td>
                 <td>{contribution.contributionTime}</td>
