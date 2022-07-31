@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.crowdfunding.app.exceptions.UserNotFoundException;
-import com.crowdfunding.common.exceptions.RequestNotProperException;
 
 @ControllerAdvice
 @Order(value= Ordered.HIGHEST_PRECEDENCE)

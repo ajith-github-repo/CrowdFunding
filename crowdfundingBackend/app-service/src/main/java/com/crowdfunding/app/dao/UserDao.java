@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.crowdfunding.app.entity.Contribution;
 import com.crowdfunding.app.entity.User;
 
 @Repository

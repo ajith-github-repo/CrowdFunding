@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ProjectController {
 
 	@Autowired
-	IProjectService projectService;
+	private IProjectService projectService;
 	
 	@PostMapping
 	public ResponseEntity<ProjectResponseDTO> createProject(@RequestHeader(name = "authorization") String token,@RequestBody ProjectRequestDTO projectIO){

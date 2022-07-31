@@ -10,6 +10,6 @@ public interface IAuthService {
 	
 	public UserResponseDTO saveAuth(UserRequestDTO auth);
 
-	Optional<UserAuth> findAuthUsingEmail(String userEmail);
+	public Optional<UserAuth> findAuthUsingEmail(String userEmail);
 	
 }

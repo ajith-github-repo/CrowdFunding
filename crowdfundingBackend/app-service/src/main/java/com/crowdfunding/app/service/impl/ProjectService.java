@@ -20,7 +20,6 @@ import com.crowdfunding.app.entity.User;
 import com.crowdfunding.app.exceptions.ProjectNotFoundException;
 import com.crowdfunding.app.service.IProjectService;
 import com.crowdfunding.app.service.IUserService;
-import com.crowdfunding.app.util.ContributionMapper;
 import com.crowdfunding.app.util.ProjectMapper;
 import com.crowdfunding.app.util.ProjectSpecificationsBuilder;
 import com.crowdfunding.app.util.UserMapper;
@@ -31,7 +30,6 @@ import com.crowdfunding.common.dto.ProjectResponseDTO;
 import com.crowdfunding.common.dto.UserResponseDTO;
 import com.crowdfunding.common.enums.ProjectStatus;
 import com.crowdfunding.common.exceptions.RequestNotProperException;
-import com.crowdfunding.common.security.JwtConfig;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,19 +38,13 @@ import lombok.extern.slf4j.Slf4j;
 public class ProjectService implements IProjectService{
 
 	@Autowired
-	IUserService userService;
+	private IUserService userService;
 	
 	@Autowired
-	JwtConfig jwtConfig;
+	private ProjectMapper projectMapper;
 	
 	@Autowired
-	ProjectMapper projectMapper;
-	
-	@Autowired
-	UserMapper userMapper;
-	
-	@Autowired
-	ContributionMapper contribMapper;
+	private UserMapper userMapper;
 
 	@Autowired
 	private ProjectDao projectDao;

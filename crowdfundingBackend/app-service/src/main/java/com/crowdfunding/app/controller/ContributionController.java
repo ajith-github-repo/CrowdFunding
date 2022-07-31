@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ContributionController {
 
 	@Autowired
-	ContributionService contributionService;	
+	private ContributionService contributionService;	
 	
 	@PostMapping
 	public ResponseEntity<ContributionResponseDTO> createContribution(@RequestHeader(name = "authorization") String tokenHeader,@RequestBody ContributionRequestDTO contributionIO){

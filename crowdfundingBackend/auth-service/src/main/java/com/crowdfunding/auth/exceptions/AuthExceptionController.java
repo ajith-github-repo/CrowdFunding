@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.crowdfunding.common.exceptions.DataValidationException;
 import com.crowdfunding.common.exceptions.RequestNotProperException;
 
-import lombok.extern.slf4j.Slf4j;
-
 @ControllerAdvice
 public class AuthExceptionController {
 	

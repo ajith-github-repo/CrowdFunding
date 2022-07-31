@@ -20,10 +20,6 @@ public class ProjectResponseDTO{
 	private UserResponseDTO innovator;
 	private int noOfContributions;
 	private int noOfFunders;
-    
-	
-	
-	
 	
 	public int getNoOfContributions() {
 		return noOfContributions;
@@ -46,34 +42,6 @@ public class ProjectResponseDTO{
 	public void setInnovator(UserResponseDTO innovator) {
 		this.innovator = innovator;
 	}
-
-
-//	private Set<ContributionResponseDTO> contributions;	
-//	private Set<UserResponseDTO> funders;
-//
-//	public Set<ContributionResponseDTO> getContributions() {
-//		return contributions;
-//	}
-//
-//
-//
-//	public void setContributions(Set<ContributionResponseDTO> contributions) {
-//		this.contributions = contributions;
-//	}
-//
-//
-//
-//	public Set<UserResponseDTO> getFunders() {
-//		return funders;
-//	}
-//
-//
-//
-//	public void setFunders(Set<UserResponseDTO> funders) {
-//		this.funders = funders;
-//	}
-
-
 
 	public Date getExpireDate() {
 		return expireDate;

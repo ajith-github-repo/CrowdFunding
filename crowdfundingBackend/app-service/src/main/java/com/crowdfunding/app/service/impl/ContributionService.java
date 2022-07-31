@@ -2,6 +2,8 @@ package com.crowdfunding.app.service.impl;
 
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import com.crowdfunding.app.entity.Project;
 import com.crowdfunding.app.entity.User;
 import com.crowdfunding.app.service.IContributionService;
 import com.crowdfunding.app.service.IProjectService;
+import com.crowdfunding.app.service.IUserService;
 import com.crowdfunding.app.util.ContributionMapper;
 import com.crowdfunding.app.util.ProjectMapper;
 import com.crowdfunding.app.util.UserMapper;
@@ -29,26 +32,28 @@ import lombok.extern.slf4j.Slf4j;
 public class ContributionService implements IContributionService{
 
 	@Autowired
-	IProjectService projectService;
+	private IProjectService projectService;
 
 	@Autowired
-	UserService userService;
+	private IUserService userService;
 	
 	@Autowired
-	ProjectMapper projectMapper;
+	private ProjectMapper projectMapper;
 	
 	@Autowired
-	ContributionMapper contribMapper;
+	private ContributionMapper contribMapper;
 	
 	@Autowired
-	UserMapper userMapper;
+	private UserMapper userMapper;
 	
 	@Autowired
-	IContributionIOValidator validator;
+	private IContributionIOValidator validator;
 	
 	@Autowired
-	ContributionDao contributionDao;
+	private ContributionDao contributionDao;
 	
+	@Transactional
+	@Override
 	public ContributionResponseDTO createContribution(String tokenHeader, ContributionRequestDTO contributionIO) {
 		log.info("ContributionService::CREATE_CONTRIBUTION Recieved");
 		
@@ -95,9 +100,6 @@ public class ContributionService implements IContributionService{
 		//Add User as one of Funders
 		Set<User> funders = proj.getFunders();
 	    funders.add(usr);
-				
-		userService.save(usr);
-		projectService.save(proj);
 		
 		ProjectResponseDTO projResp = projectMapper.toResponseDTO(proj);
 		UserResponseDTO usrResp = userMapper.toResponseDTO(usr);

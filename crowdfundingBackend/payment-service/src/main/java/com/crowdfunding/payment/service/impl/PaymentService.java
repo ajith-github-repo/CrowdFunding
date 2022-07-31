@@ -28,17 +28,17 @@ import lombok.extern.slf4j.Slf4j;
 public class PaymentService implements IPaymentService{
 
 	@Autowired
-	RestTemplate restTemplate;
+	private RestTemplate restTemplate;
 	
 	@Autowired
-	IPaymentsIOValidator validator;
+	private IPaymentsIOValidator validator;
 	
 	@Autowired
-	PaymentMapper paymentMapper;
+	private PaymentMapper paymentMapper;
 	
 	
 	@Autowired
-	PaymentDao paymentDao;
+	private PaymentDao paymentDao;
 	
 	@Override
 	public ContributionResponseDTO pay(String tokenHeader,PaymentRequestDTO paymentIO) {

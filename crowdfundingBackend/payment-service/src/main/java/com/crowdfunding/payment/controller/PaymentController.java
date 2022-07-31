@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PaymentController {
 
 	@Autowired
-	IPaymentService paymentService;
+	private IPaymentService paymentService;
 	
 	@PostMapping()
 	public ResponseEntity<ContributionResponseDTO> contribute(@RequestHeader(name = "authorization") String tokenHeader,@RequestBody PaymentRequestDTO paymentIO) {

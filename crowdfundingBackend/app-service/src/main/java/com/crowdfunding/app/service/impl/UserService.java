@@ -35,19 +35,19 @@ public class UserService implements IUserService{
 	private UserDao userDao;
 	
 	@Autowired
-	UserMapper userMapper;
+	private UserMapper userMapper;
 	
 	@Autowired
-	ProjectMapper projMapper;
+	private ProjectMapper projMapper;
 	
 	@Autowired
-	ContributionMapper contribMapper;
+	private ContributionMapper contribMapper;
 	
 	@Autowired
-	JwtConfig jwtConfig;
+	private JwtConfig jwtConfig;
 	
 	@Autowired
-	IUserIOValidator validator;
+	private IUserIOValidator validator;
 
 	@Override
 	public UserResponseDTO saveUser(UserRequestDTO userIO) {

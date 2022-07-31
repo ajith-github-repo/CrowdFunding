@@ -12,8 +12,6 @@ public class UserResponseDTO {
 	private Set<ProjectResponseDTO> projectsOwned;
     private Set<ContributionResponseDTO> contributions;
     
-    
-    
 	public Long getUserId() {
 		return userId;
 	}

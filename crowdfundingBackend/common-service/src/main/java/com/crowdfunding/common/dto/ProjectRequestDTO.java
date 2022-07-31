@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.crowdfunding.common.exceptions.DataValidationException;
 
-public class ProjectRequestDTO implements IRequestObj{
+public class ProjectRequestDTO{
 	
 	private String title;
 	private String description;
@@ -65,10 +65,6 @@ public class ProjectRequestDTO implements IRequestObj{
 	public void setExpireDate(String expireDate) {
 		this.expireDate = expireDate;
 	}
-
-	
-	
-	
 	
 	public ProjectRequestDTO(String title, String description, Long amountRequested, String expireDate,
 			List<String> tags, String tagline, boolean startGettingFunded, String imageUrl) {
@@ -83,26 +79,6 @@ public class ProjectRequestDTO implements IRequestObj{
 		this.imageUrl = imageUrl;
 	}
 	public ProjectRequestDTO() {
-		
-	}
-	@Override
-	public void validateInput() {
-		
-		if(this.getAmountRequested() <= 0L)
-			throw new DataValidationException("Requested Amount should be greater Zero");
-		
-		if(this.getExpireDate() == null)
-			throw new DataValidationException("Please Provide an Expiry Date");
-		
-		if(this.getTitle() == null || this.getTitle().length() == 0 || this.getTitle().length() > 50)
-			throw new DataValidationException("Title length doesnt meet minimum requirements,  min 1 max 50 characters");
-		
-		if(this.getDescription() == null || this.getDescription().length() == 0 || this.getDescription().length() > 10000)
-			throw new DataValidationException("Description length doesnt meet minimum requirements, min 1 max 10000 characters");
-		
-		if(this.getTagline() == null || this.getTagline().length() == 0 || this.getTagline().length() > 100)
-			throw new DataValidationException("Tagline length doesnt meet minimum requirements, min 1 max 100 characters");
-		
 		
 	}
 	

@@ -4,7 +4,7 @@ import com.crowdfunding.common.constants.Constants;
 import com.crowdfunding.common.exceptions.DataValidationException;
 import com.crowdfunding.common.util.RegexHelper;
 
-public class UserRequestDTO implements IRequestObj{
+public class UserRequestDTO {
 
 	private Long userId;
 	private String firstName;
@@ -79,20 +79,4 @@ public class UserRequestDTO implements IRequestObj{
 		this.userEmail = userEmail;
 	}
 
-	@Override
-	public void validateInput() {
-		if(this.getFirstName() == null || this.getFirstName().trim().length() == 0) throw new DataValidationException("Invalid FirstName");
-		if(this.getLastName() == null || this.getLastName().trim().length() == 0) throw new DataValidationException("Invalid Lastname");
-		
-        Boolean isValidEmail = RegexHelper.validate(this.getUserEmail(), Constants.VALID_EMAIL_ADDRESS_REGEX);
-		
-		if(!isValidEmail) throw new DataValidationException("Invalid UserEmail Format");
-		
-		Boolean isValidPassword = RegexHelper.validate(this.getPassword(), Constants.VALID_PASSWORD_REGEX);
-
-		if(!isValidPassword) throw new DataValidationException("Invalid Password Format");
-		
-		
-	}
-	
 }

@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 
 	@Autowired
-	IUserService userService;
+	private IUserService userService;
 	
 	@PostMapping("/")
 	public ResponseEntity<UserResponseDTO> saveUser(@RequestBody UserRequestDTO userIO) {
