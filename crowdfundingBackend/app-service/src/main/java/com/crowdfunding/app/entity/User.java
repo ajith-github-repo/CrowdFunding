@@ -2,6 +2,7 @@
 package com.crowdfunding.app.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -43,7 +44,7 @@ public class User implements Serializable{
 	        joinColumns = { @JoinColumn(name = "user_id") }, 
 	        inverseJoinColumns = { @JoinColumn(name = "project_id") }
 	 )
-	private Set<Project> projectsFunded;
+	private Set<Project> projectsFunded = new HashSet<>();
 	
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(
@@ -51,7 +52,7 @@ public class User implements Serializable{
             joinColumns = @JoinColumn( name="user_id"),
             inverseJoinColumns = @JoinColumn( name="project_id")
         )
-	private Set<Project> projectsOwned;
+	private Set<Project> projectsOwned = new HashSet<>();
 	
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinTable(
@@ -59,7 +60,7 @@ public class User implements Serializable{
             joinColumns = @JoinColumn( name="user_id"),
             inverseJoinColumns = @JoinColumn( name="cntrb_id")
         )
-    private Set<Contribution> contributions;	
+    private Set<Contribution> contributions= new HashSet<>();		
 
 	public Set<Contribution> getContributions() {
 		return contributions;
@@ -123,7 +124,6 @@ public class User implements Serializable{
 		this.firstName = firstName;
 	}
 
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(firstName, lastName, userEmail, userId);
@@ -142,18 +142,12 @@ public class User implements Serializable{
 				&& Objects.equals(userEmail, other.userEmail) && Objects.equals(userId, other.userId);
 	}
 
-	
-
-	public User(Long userId, String userEmail, String lastName, String firstName, Set<Project> projectsFunded,
-			Set<Project> projectsOwned, Set<Contribution> contributions) {
+	public User(Long userId, String userEmail, String lastName, String firstName) {
 		super();
 		this.userId = userId;
 		this.userEmail = userEmail;
 		this.lastName = lastName;
 		this.firstName = firstName;
-		this.projectsFunded = projectsFunded;
-		this.projectsOwned = projectsOwned;
-		this.contributions = contributions;
 	}
 
 	public User() {

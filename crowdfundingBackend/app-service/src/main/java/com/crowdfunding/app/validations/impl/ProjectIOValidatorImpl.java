@@ -5,8 +5,12 @@ import org.springframework.stereotype.Component;
 import com.crowdfunding.app.validations.IProjectIOValidator;
 import com.crowdfunding.common.dto.ProjectRequestDTO;
 import com.crowdfunding.common.exceptions.DataValidationException;
+import com.crowdfunding.common.exceptions.RequestNotProperException;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 public class ProjectIOValidatorImpl implements IProjectIOValidator{
 
 
@@ -28,5 +32,18 @@ public class ProjectIOValidatorImpl implements IProjectIOValidator{
 		if(projectIO.getTagline() == null || projectIO.getTagline().length() == 0 || projectIO.getTagline().length() > 100)
 			throw new DataValidationException("Tagline length doesnt meet minimum requirements, min 1 max 100 characters");
 	
+	}
+	
+	@Override
+	public Long validate(String projectId) {
+		Long id;
+		try {
+		    id = Long.parseLong(projectId);
+		}catch(NumberFormatException e) {
+			log.info("ProjectValidator::VALIDATE Invalid ID: "+projectId);
+			throw new RequestNotProperException("Invalid Project Id Recieved "+projectId);
+		}
+		
+		return id;
 	}
 }

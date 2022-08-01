@@ -2,6 +2,7 @@ package com.crowdfunding.app.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -68,10 +69,10 @@ public class Project implements Serializable{
 
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "project_id")
-    private Set<Contribution> contributions;	
+    private Set<Contribution> contributions = new HashSet<>();	
 
 	@ManyToMany(mappedBy = "projectsFunded",fetch = FetchType.LAZY)
-	private Set<User> funders;
+	private Set<User> funders = new HashSet<>();
 
 	public Date getExpireDate() {
 		return expireDate;
@@ -107,26 +108,6 @@ public class Project implements Serializable{
 		this.creationDate = creationDate;
 	}
 
-	public Project(Long projectId, String title, String tagline, String description, Long amountRequested,
-			Long amountCollected, Date expireDate, Date creationDate, ProjectStatus status, String tags,
-			String imageUrl, User innovator) {
-		super();
-		this.projectId = projectId;
-		this.title = title;
-		this.tagline = tagline;
-		this.description = description;
-		this.amountRequested = amountRequested;
-		this.amountCollected = amountCollected;
-		this.expireDate = expireDate;
-		this.creationDate = creationDate;
-		this.status = status;
-		this.tags = tags;
-		this.imageUrl = imageUrl;
-		this.innovator = innovator;
-	}
-
-
-
 	public Set<Contribution> getContributions() {
 		return contributions;
 	}
@@ -141,33 +122,6 @@ public class Project implements Serializable{
 	public Set<User> getFunders() {
 		return funders;
 	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(amountCollected, amountRequested, creationDate, description, expireDate, imageUrl,
-				innovator, projectId, status, tagline, tags, title);
-	}
-
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Project other = (Project) obj;
-		return Objects.equals(amountCollected, other.amountCollected)
-				&& Objects.equals(amountRequested, other.amountRequested)
-				&& Objects.equals(creationDate, other.creationDate) && Objects.equals(description, other.description)
-				&& Objects.equals(expireDate, other.expireDate) && Objects.equals(imageUrl, other.imageUrl)
-				&& Objects.equals(innovator, other.innovator) && Objects.equals(projectId, other.projectId)
-				&& status == other.status && Objects.equals(tagline, other.tagline) && Objects.equals(tags, other.tags)
-				&& Objects.equals(title, other.title);
-	}
-
 
 
 	public String getImageUrl() {
@@ -289,6 +243,53 @@ public class Project implements Serializable{
 		this.status = status;
 	}
 
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(amountCollected, amountRequested, creationDate, description, expireDate, imageUrl,
+				projectId, status, tagline, tags, title);
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Project other = (Project) obj;
+		return Objects.equals(amountCollected, other.amountCollected)
+				&& Objects.equals(amountRequested, other.amountRequested)
+				&& Objects.equals(creationDate, other.creationDate) && Objects.equals(description, other.description)
+				&& Objects.equals(expireDate, other.expireDate) && Objects.equals(imageUrl, other.imageUrl)
+				&& Objects.equals(projectId, other.projectId) && status == other.status
+				&& Objects.equals(tagline, other.tagline) && Objects.equals(tags, other.tags)
+				&& Objects.equals(title, other.title);
+	}
+
 	
+	
+	public Project(Long projectId, String title, String tagline, String description, Long amountRequested,
+			Long amountCollected, Date expireDate, Date creationDate, ProjectStatus status, String tags,
+			String imageUrl) {
+		super();
+		this.projectId = projectId;
+		this.title = title;
+		this.tagline = tagline;
+		this.description = description;
+		this.amountRequested = amountRequested;
+		this.amountCollected = amountCollected;
+		this.expireDate = expireDate;
+		this.creationDate = creationDate;
+		this.status = status;
+		this.tags = tags;
+		this.imageUrl = imageUrl;
+	}
+
+
 	
 }

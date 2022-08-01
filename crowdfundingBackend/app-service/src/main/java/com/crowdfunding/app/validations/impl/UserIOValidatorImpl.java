@@ -23,19 +23,21 @@ public class UserIOValidatorImpl implements IUserIOValidator{
 		
 		if(!isValidEmail) throw new DataValidationException("Invalid UserEmail Format");
 		
-		Boolean isValidPassword = RegexHelper.validate(userIO.getPassword(), Constants.VALID_PASSWORD_REGEX);
-
-		if(!isValidPassword) throw new DataValidationException("Invalid Password Format");
+//		Boolean isValidPassword = RegexHelper.validate(userIO.getPassword(), Constants.VALID_PASSWORD_REGEX);
+//
+//		if(!isValidPassword) throw new DataValidationException("Invalid Password Format");
 
 	}
 
 	@Override
-	public void validate(String userId) {
+	public Long validate(String userId) {
+		Long id;
 		try {
-		    Long.parseLong(userId);
+		    id = Long.parseLong(userId);
 		}catch(NumberFormatException e) {
 			log.info("UserValidator::VALIDATE Invalid ID: "+userId);
 			throw new RequestNotProperException("Invalid User Id Recieved "+userId);
 		}
+		return id;
 	}
 }

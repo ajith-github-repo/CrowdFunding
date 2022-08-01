@@ -5,6 +5,6 @@ import com.crowdfunding.common.dto.UserRequestDTO;
 public interface IUserIOValidator {
 
 	public void validate(UserRequestDTO userIO);
-	public void validate(String userId);
+	public Long validate(String userId);
 
 }

@@ -47,12 +47,15 @@ public class UserService implements IUserService{
 	private JwtConfig jwtConfig;
 	
 	@Autowired
+	private JWTHelper jwtHelper;
+	
+	@Autowired
 	private IUserIOValidator validator;
 
 	@Override
 	public UserResponseDTO saveUser(UserRequestDTO userIO) {
 		log.info("UserService::SAVE_USER Recieved");
-		
+		validator.validate(userIO);
 		User user = userMapper.fromRequestDTO(userIO);
 		
 		User savedUser = save(user);
@@ -69,9 +72,7 @@ public class UserService implements IUserService{
 	public UserResponseDTO getUserDetails(String userId) {
 		log.info("UserService::GET_USER_DETAILS Recieved");
 		
-		validator.validate(userId);
-		
-		Long id = Long.parseLong(userId);
+		Long id = validator.validate(userId);
 		
 		Optional<User> user = userDao.findById(id);
 
@@ -86,9 +87,7 @@ public class UserService implements IUserService{
 	public Set<ContributionResponseDTO> getUserContributions(String tokenHeader, String userId) {
 		log.info("UserService::GET_USER_CONTRIBUTIONS Recieved");
         
-		validator.validate(userId);
-		
-		Long id = Long.parseLong(userId);
+		Long id = validator.validate(userId);
 		
 		User usr = findCurrentlyLoggedInUser(tokenHeader);
 		
@@ -114,9 +113,7 @@ public class UserService implements IUserService{
 	public Set<ProjectResponseDTO> getAllUserProjects(String tokenHeader, String userId) {
 		log.info("UserService::GET_USER_PROJECTS Recieved");
 	
-        validator.validate(userId);
-		
-		Long id = Long.parseLong(userId);
+		Long id = validator.validate(userId);
 		
 		User usr = findCurrentlyLoggedInUser(tokenHeader);
 		
@@ -144,7 +141,7 @@ public class UserService implements IUserService{
 	
 	public User findCurrentlyLoggedInUser(String tokenHeader) {
 		
-        String userEmail = JWTHelper.getCurrentlyLoggedInUserFromJWT(tokenHeader.replace(jwtConfig.getPrefix(), ""),jwtConfig.getSecret());
+        String userEmail = jwtHelper.getCurrentlyLoggedInUserFromJWT(tokenHeader.replace(jwtConfig.getPrefix(), ""),jwtConfig.getSecret());
 		
 		Optional<User> userObj = userDao.findUserUsingEmail(userEmail);
 		

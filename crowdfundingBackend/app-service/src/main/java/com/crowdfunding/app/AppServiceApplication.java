@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.crowdfunding.common.security.JwtConfig;
+import com.crowdfunding.common.util.JWTHelper;
 
 @SpringBootApplication
 public class AppServiceApplication {
@@ -16,6 +17,12 @@ public class AppServiceApplication {
 	@Bean
   	public JwtConfig jwtConfig() {
     	   return new JwtConfig();
-  	}	
+  	}
+	
+	@Bean
+  	public JWTHelper jwtHelper() {
+    	   return new JWTHelper();
+  	}
+
 
 }

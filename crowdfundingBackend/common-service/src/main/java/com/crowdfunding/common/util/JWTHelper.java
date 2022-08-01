@@ -10,7 +10,7 @@ import io.jsonwebtoken.SignatureException;
 
 public class JWTHelper {
 
-	public static String getCurrentlyLoggedInUserFromJWT(String jwtToken,String jwtSecret) {
+	public String getCurrentlyLoggedInUserFromJWT(String jwtToken,String jwtSecret) {
 
 		try {
 

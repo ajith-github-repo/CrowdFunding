@@ -1,13 +1,16 @@
 package com.crowdfunding.app.util;
 
+import org.springframework.stereotype.Component;
+
 import com.crowdfunding.common.exceptions.RequestNotProperException;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Component
 public class Util {
 
-	public static int[] parsePagenationInfo(String pagingInfoStr) {
+	public int[] parsePagenationInfo(String pagingInfoStr) {
         int[] res = new int[2];
 		if(pagingInfoStr == null || "".equals(pagingInfoStr)) {
 			log.info("Util::PARSE_PAGINATION_INFO -> Pagination Info was not supplied");

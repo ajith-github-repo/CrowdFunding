@@ -78,22 +78,16 @@ public class Contribution {
 	
 	
 	
-	public Contribution(Long contributionId, Long contributionAmount, Date contributionTime, User contributor,
-			Project project) {
+	public Contribution(Long contributionId, Long contributionAmount, Date contributionTime) {
 		super();
 		this.contributionId = contributionId;
 		this.contributionAmount = contributionAmount;
 		this.contributionTime = contributionTime;
-		this.contributor = contributor;
-		this.project = project;
 	}
-
-	
 
 	@Override
 	public int hashCode() {
-
-		return Objects.hash(contributionAmount, contributionId, contributionTime, contributor, project);
+		return Objects.hash(contributionAmount, contributionId, contributionTime);
 	}
 
 	@Override
@@ -107,11 +101,8 @@ public class Contribution {
 		Contribution other = (Contribution) obj;
 		return Objects.equals(contributionAmount, other.contributionAmount)
 				&& Objects.equals(contributionId, other.contributionId)
-				&& Objects.equals(contributionTime, other.contributionTime)
-				&& Objects.equals(contributor, other.contributor) && Objects.equals(project, other.project);
+				&& Objects.equals(contributionTime, other.contributionTime);
 	}
-
-
 
 	public Contribution() {
 		

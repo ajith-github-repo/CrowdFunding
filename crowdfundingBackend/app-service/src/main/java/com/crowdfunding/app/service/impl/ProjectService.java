@@ -51,6 +51,9 @@ public class ProjectService implements IProjectService{
 	
 	@Autowired
 	private IProjectIOValidator validator;
+	
+	@Autowired
+	private Util util;
 
 	@Override
 	public ProjectResponseDTO fetchProjectById(String projectId) {
@@ -113,13 +116,7 @@ public class ProjectService implements IProjectService{
 	@Override
     public Project getProjectById(String projectId) {
     	log.info("ProjectService::GET_PROJECT_BY_ID Recived"+projectId);
-		Long id;
-		try {
-			id = Long.parseLong(projectId);
-		}catch(NumberFormatException e) {
-			log.info("ProjectService::GET_PROJECT_BY_ID Invalid ID "+projectId);
-			throw new RequestNotProperException("Invalid Project Id Recieved");
-		}
+    	Long id = validator.validate(projectId);
 		Optional<Project> projectOpt = projectDao.findById(id);
 		
 		if (!projectOpt.isPresent()) {
@@ -152,7 +149,7 @@ public class ProjectService implements IProjectService{
 	public ProjectResponseDTOPaginated getAllProjectsPaginated(String pagingInfo) {
 		log.info("ProjectService::GET_ALL_PROJECTS_PAGINATED Recieved");
 		
-		int[] paging = Util.parsePagenationInfo(pagingInfo);
+		int[] paging = util.parsePagenationInfo(pagingInfo);
 		
 		Pageable page= PageRequest.of(paging[1], paging[0]);
 		Page<Project> res = projectDao.findAll(page);
@@ -172,7 +169,7 @@ public class ProjectService implements IProjectService{
 	public ProjectResponseDTOPaginated getAllProjectsPaginatedWithQuery(String pagingInfo,String search) {
 		log.info("ProjectService::FIND_ALL Recieved");
 		
-        int[] paging = Util.parsePagenationInfo(pagingInfo);
+        int[] paging = util.parsePagenationInfo(pagingInfo);
 		
 		Pageable page= PageRequest.of(paging[1], paging[0]);
 		
