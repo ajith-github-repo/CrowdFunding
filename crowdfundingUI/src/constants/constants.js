@@ -35,23 +35,23 @@ function Constants() {
      TOKEN_KEY:"token",
      HIDE_SEARCHBAR_PAGES : [/projects/,/profile/,/project/],
        API:{
-         BASE_URL:process.env.REACT_APP_BASE_URL,
+         BASE_URL:process.env.REACT_APP_BASE_URL || "",
          AUTH:{
-            AUTH_SERVICE_BASE_PATH:process.env.REACT_APP_AUTH_SERVICE_BASE_PATH,
-            SIGN_IN_PATH:process.env.REACT_APP_SIGN_IN_PATH,
-            SIGN_UP_PATH:process.env.REACT_APP_SIGN_UP_PATH,
+            AUTH_SERVICE_BASE_PATH:process.env.REACT_APP_AUTH_SERVICE_BASE_PATH || "",
+            SIGN_IN_PATH:process.env.REACT_APP_SIGN_IN_PATH || "",
+            SIGN_UP_PATH:process.env.REACT_APP_SIGN_UP_PATH || "",
         },
         USER:{
-            USER_SERVICE_BASE_PATH:process.env.REACT_APP_USER_SERVICE_BASE_PATH,
-            ALL_USER_CONTRIBUTIONS_PATH:process.env.REACT_APP_ALL_USER_CONTRIBUTIONS_PATH,
-            ALL_USER_PROJECTS_PATH:process.env.REACT_APP_ALL_USER_PROJECTS_PATH
+            USER_SERVICE_BASE_PATH:process.env.REACT_APP_USER_SERVICE_BASE_PATH || "",
+            ALL_USER_CONTRIBUTIONS_PATH:process.env.REACT_APP_ALL_USER_CONTRIBUTIONS_PATH || "",
+            ALL_USER_PROJECTS_PATH:process.env.REACT_APP_ALL_USER_PROJECTS_PATH || ""
         },
         PROJECT:{
-            PROJECT_SERVICE_BASE_PATH:process.env.REACT_APP_PROJECT_SERVICE_BASE_PATH,
-            PAGINATED_SEARCH_PATH:process.env.REACT_APP_PAGINATED_SEARCH,
+            PROJECT_SERVICE_BASE_PATH:process.env.REACT_APP_PROJECT_SERVICE_BASE_PATH || "",
+            PAGINATED_SEARCH_PATH:process.env.REACT_APP_PAGINATED_SEARCH || "",
         },
         PAYMENT:{
-            PAYMENT_SERVICE_BASE_PATH:process.env.REACT_APP_PAYMENT_SERVICE_BASE_PATH,
+            PAYMENT_SERVICE_BASE_PATH:process.env.REACT_APP_PAYMENT_SERVICE_BASE_PATH || "",
         }
        },
     }

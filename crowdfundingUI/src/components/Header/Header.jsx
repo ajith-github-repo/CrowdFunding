@@ -71,7 +71,6 @@ const Header = () => {
     const placeholderText = `Search by ${currentlySelected}`
 
     useEffect(()=>{
-        debugger;
         if(constants.HIDE_SEARCHBAR_PAGES.some(x => x.test(location.pathname))){
              dispatchHideSearchBox();
         }else{
@@ -175,7 +174,7 @@ const Header = () => {
                                 {values(constants.SEARCH_BY_TYPES).map(text => <li key={text} onClick={handleDropdownSelection} className={styles.options}>{text}</li>)}
                             </ul>
                         </div>
-                        <input data-testid="search-input" placeholder={placeholderText} onChange= {handleOnSearchTextChange} className={`${styles.navSearchBar} ${styles.navSearchInput}`} ></input><FaSearch className={styles.searchIcon}></FaSearch>
+                        <input placeholder={placeholderText} onChange= {handleOnSearchTextChange} className={`${styles.navSearchBar} ${styles.navSearchInput}`} ></input><FaSearch className={styles.searchIcon}></FaSearch>
                     </div>}
                 </div>
                 <div className={styles.right}>
@@ -186,6 +185,7 @@ const Header = () => {
                     {state && state.session.currentUser && <button className={styles.navRightBtn} onClick={handleLogout}>Logout</button>}
                     {
                         <Modal
+                            ariaHideApp={false}
                             isOpen={!state.appState.hideSignIn || !state.appState.hideSignUp}
                             onRequestClose={handleModalClose}
                             style={customStyles}

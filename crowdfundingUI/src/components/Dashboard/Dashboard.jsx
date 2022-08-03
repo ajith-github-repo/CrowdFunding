@@ -39,7 +39,7 @@ const Dashboard = () => {
     let showFetchMore = false;
     if(state.project) {
         tiles = getAllTiles(values(state.project.projects))
-        showFetchMore = state.project.pagingInfo.nextAvailable;
+        showFetchMore = values(state.project.projects).length === 0 ? false : state.project.pagingInfo.nextAvailable ? true : false;
     };
     
 
@@ -83,7 +83,6 @@ const Dashboard = () => {
 };
 
 function getAllTiles (projects){
-    let tilesArr = [];
     return projects.map(project =>
         (<ProjectTile key={project.projectId} project={project} />)
       );

@@ -16,6 +16,7 @@ export async function fetchAllProjects(paginationInfo,queryInfo) {
        const fetchAllOpenProjectsUrl = `${config.API.BASE_URL}${config.API.PROJECT.PROJECT_SERVICE_BASE_PATH}${config.API.PROJECT.PAGINATED_SEARCH_PATH}?pagingInfo=${queryStringPagination}&query=${queryStringSearch}`
         
 
+       
        response = await axios.get(fetchAllOpenProjectsUrl,{
             headers:{
                 ...getContentTypeHeader()
