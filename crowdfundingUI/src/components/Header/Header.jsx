@@ -71,7 +71,8 @@ const Header = () => {
     const placeholderText = `Search by ${currentlySelected}`
 
     useEffect(()=>{
-        if(constants.HIDE_SEARCHBAR_PAGES.includes(location.pathname)){
+        debugger;
+        if(constants.HIDE_SEARCHBAR_PAGES.some(x => x.test(location.pathname))){
              dispatchHideSearchBox();
         }else{
              dispatchUnHideSearchBox();
@@ -164,7 +165,7 @@ const Header = () => {
         <div className={styles.header}>
             <nav className={styles.navBar}>
                 <div className={styles.left}>
-                    <Link to={constants.PATHS.DASHBOARD} className={styles.headingLink}><h1 className={styles.heading}><span className={styles.light}>Crowd</span>Funding</h1></Link>
+                    <Link to={constants.PATHS.DASHBOARD} className={styles.headingLink}><h1 className={styles.heading} data-testid="title"><span className={styles.light}>Crowd</span>Funding</h1></Link>
                     {!state.appState.hideSearchBox && <div className={styles.searchForm}>
                         <div className={styles.selectText} onClick={handleDropdown}>
                             <p>{currentlySelected}</p>
@@ -174,7 +175,7 @@ const Header = () => {
                                 {values(constants.SEARCH_BY_TYPES).map(text => <li key={text} onClick={handleDropdownSelection} className={styles.options}>{text}</li>)}
                             </ul>
                         </div>
-                        <input placeholder={placeholderText} onChange= {handleOnSearchTextChange} className={`${styles.navSearchBar} ${styles.navSearchInput}`} ></input><FaSearch className={styles.searchIcon}></FaSearch>
+                        <input data-testid="search-input" placeholder={placeholderText} onChange= {handleOnSearchTextChange} className={`${styles.navSearchBar} ${styles.navSearchInput}`} ></input><FaSearch className={styles.searchIcon}></FaSearch>
                     </div>}
                 </div>
                 <div className={styles.right}>

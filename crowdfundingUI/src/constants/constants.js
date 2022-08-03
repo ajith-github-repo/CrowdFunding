@@ -33,7 +33,7 @@ function Constants() {
      GET:"get",
      PUT:"put",
      TOKEN_KEY:"token",
-     HIDE_SEARCHBAR_PAGES : ["/projects","/profile","/project/create"],
+     HIDE_SEARCHBAR_PAGES : [/projects/,/profile/,/project/],
        API:{
          BASE_URL:process.env.REACT_APP_BASE_URL,
          AUTH:{

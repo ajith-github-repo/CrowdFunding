@@ -42,8 +42,6 @@ const SignIn = ({ handleSignUpPageClick, handleModalClose }) => {
         let currentUserResp = await fetchCurrentUser();
 
         if (currentUserResp.data === null) {dispatchSetAlert( true, res.message, config.ALERT_TYPES.ERROR); return;}
-
-        debugger;
         handleModalClose();
         dispatchSetAuthenticatedUser(currentUserResp.data);
         dispatchSetAlert( true, 'Welcome '+currentUserResp.data.firstName, config.ALERT_TYPES.SUCCESS)

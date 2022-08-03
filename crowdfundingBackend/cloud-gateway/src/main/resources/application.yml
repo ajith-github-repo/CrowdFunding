@@ -30,4 +30,3 @@ zuul:
       service-id: APP-SERVICE
       strip-prefix: false
       sensitive-headers: Cookie,Set-Cookie
-    
