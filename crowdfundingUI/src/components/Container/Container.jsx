@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment}from 'react';
 import { useEffect } from 'react';
 import {useAppState} from '../../contexts/AppState';
 import {getFromLocalStorage,removeFromLocalStorage} from '../../utils/apiUtil';
@@ -22,9 +22,9 @@ function Container({children}){
         }
     },[]);
 
-    return <div>
+    return <Fragment >
         {children}
-    </div>
+    </Fragment>
 
 }
 

@@ -15,7 +15,7 @@
 }
 
 body {
-    width: 100%;
+    min-width: fit-content;
     height: 100vh;
     font-family: 'Montserrat', sans-serif ;
     /* background-color: var(--bg-color) !important;

@@ -1,4 +1,4 @@
-.showCampScope {
+.showProjectDiv {
     padding-top: 40px;
     width: 95%;
     margin: 0 auto;
@@ -6,7 +6,7 @@
   }
   
   @media (min-width: 1280px) {
-    .showCampScope {
+    .showProjectDiv {
       padding-left: 30px;
       padding-right: 30px;
       max-width: 1280px;
@@ -33,7 +33,7 @@
       color:white;
       font-family: var(--font-family);
   }
-  .showCampBody {
+  .showProject {
     display: flex;
     margin-bottom: 20px;
     flex-direction: row;
@@ -54,11 +54,11 @@
     padding-right: 20px;
   }
 
-  .perksList {
+  .tagsList {
     width: 62.7%;
   }
 
-  .perksTitle {
+  .tagsTitle {
     font-weight: 600;
     font-size: 16px;
     line-height: 26px;
@@ -100,7 +100,7 @@
     line-height: 20px;
   }
 
-  .projectSummaryScope {
+  .projectSummaryDiv {
     margin-bottom: 30px;
     margin-left: -20px;
     margin-right: -20px;
@@ -338,3 +338,36 @@
     margin-right: 0;
   }
   
+
+  @media screen and (min-width: 375px) and (max-width: 768px) {
+
+    .showProject {
+      display: flex;
+      flex-direction: column;
+    }
+    .projectSummaryCont{
+      max-height: 600px;
+      flex-direction: column;
+    }
+    .projectSummaryDiv{
+      width: 100% !important;
+    }
+    .projShowHeader{
+      width: 100% !important;
+      padding-top: 30px;
+    }
+    .bodyLeadSection{
+      width: 100%;
+    }
+    .tagsList{
+      width: 100% !important;
+    }
+    .bodyFinalSection{
+      width: 100% !important;
+    }
+    
+    .mediaBox{
+      margin-left: 20px;
+    }
+
+  }

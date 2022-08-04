@@ -34,21 +34,35 @@ label{
   font-family: var(--font-family);
 }
 
-@media screen and (min-width: 450px) and (max-width: 700px) {
+@media screen and (min-width: 375px) and (max-width: 768px) {
   .form {
-    width:70%
+    width:100%
+  }
+  .input{
+    min-width: 100px;
+    width:200px;
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (min-width: 768px) and (max-width: 1200px) {
   .form {
-    width:90%
+    width:100%;
+    height:'fit-content'; 
   }
   .input{
-    font-size: small !important;
+    min-width: 100px;
+    width:500px !important;
   }
-  .button{
-    font-size: small !important;
+}
+
+@media screen and (min-width: 1200px) {
+  .form {
+    width:100%;
+    height:'fit-content'; 
+  }
+  .input{
+    min-width: 100px;
+    width:400px !important;
   }
 }
 

@@ -31,13 +31,41 @@ label{
   font-family: var(--font-family);
 }
 
-@media screen and (min-width: 450px) and (max-width: 700px) {
+@media screen and (min-width: 375px) and (max-width: 768px) {
   .form {
-    width:70%
+    width:100%
+  }
+  .input{
+    min-width: 100px;
+    width:300px !important;
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+  .form {
+    width:100%;
+    height:350px; 
+  }
+  .input{
+    min-width: 100px;
+    height: 60px;
+    width:500px !important;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .form {
+    width:100%;
+    height:280px; 
+  }
+  .input{
+    min-width: 100px;
+    height: 60px;
+    width:400px !important;
+  }
+}
+
+/* @media screen and (max-width: 450px) {
   .form {
     width:90%
   }
@@ -47,7 +75,7 @@ label{
   .button{
     font-size: small !important;
   }
-}
+} */
 
 .input {
     border-radius: var(--main-border-radius);

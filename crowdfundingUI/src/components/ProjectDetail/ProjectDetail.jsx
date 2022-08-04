@@ -137,12 +137,12 @@ const ProjectDetail = () => {
      const renderProjectSummary = (project) => {
       if(!project) return <h1>Empty</h1>
         return (
-          <div className={styles.projectSummaryScope}>
+          <div className={styles.projectSummaryDiv}>
             <div className={styles.projectSummaryCont}>
               {renderImageBox(project.imageUrl)}
               <div className={styles.projShowHeader}>
                 <div className={styles.projectTitle}>{project.title}</div>
-                <div className={styles.campTagline}>{project.tagLine}</div>
+                <div className={styles.projectTagline}>{project.tagLine}</div>
                  {renderInnovatorBox(project.innovator)}
                 {renderProjectProgress(project)}
                 {renderProjectDaysLeft(project)}
@@ -282,15 +282,15 @@ const ProjectDetail = () => {
 
     if(state.project.selectedProject === null) return (<h1>Project Not Found</h1>)
     return (
-        <div className={styles.showCampScope}>
+        <div className={styles.showProjectDiv}>
           {renderProjectSummary(state.project.selectedProject)}
-          <div className={styles.showCampBody}>
+          <div className={styles.showProject}>
             <div className={styles.bodyLeadSection}>
                 {renderDescription(state.project.selectedProject.description)}
             </div>
             <div className={styles.bodyFinalSection}>
-              <div className={styles.perksList}>
-                <div className={styles.perksTitle}>TAGS</div>
+              <div className={styles.tagsList}>
+                <div className={styles.tagsTitle}>TAGS</div>
                 {renderTags(state.project.selectedProject.tags)}
               </div>
             </div>

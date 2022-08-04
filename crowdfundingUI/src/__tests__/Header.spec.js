@@ -40,10 +40,10 @@ describe("Header Component", () => {
     expect(screen.getByRole("button", { name: /START A PROJECT/i })).toBeInTheDocument();
 
     expect(screen.getByRole("textbox")).toBeInTheDocument();
-
-    expect(screen.getByRole("heading").textContent).toBe("CrowdFunding");
-
-    const ul = screen.getByRole('list');
+    expect(screen.getAllByRole("heading").length).toBe(2);
+    expect(screen.getAllByRole("heading").map(ele => ele.textContent)).toStrictEqual(["CF","CrowdFunding"]);
+    
+    const ul = screen.getByTestId('searchDropdown');
 
     expect(ul).toBeInTheDocument();
 
@@ -181,7 +181,7 @@ describe("Header Component", () => {
     const initialRouterEntries = ['/project/create'];
     const screen = renderWithMemoryRouterAndProvider(<Fragment><Header></Header> <AppRoutes></AppRoutes></Fragment>, initialState,initialRouterEntries)
 
-    const crowdFundingHeading = screen.getByRole("heading");
+    const crowdFundingHeading = screen.getAllByRole("heading")[0];
 
     
     userEvent.click(crowdFundingHeading);

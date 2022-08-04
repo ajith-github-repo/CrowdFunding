@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import SignIn from '../SignIn';
 import SignUp from '../SignUp';
+import {useWindowSize} from '../../utils/windowSizeUtil';
 import { unsetAuthenticatedUser } from '../../actions/sessionActions';
 import { removeFromLocalStorage } from '../../utils/apiUtil';
 import { FaSearch } from 'react-icons/fa';
@@ -19,11 +20,12 @@ import {fetchAllProjects} from '../../api/project';
 import {useLocation} from 'react-router-dom';
 import {hideSearchBox,unHideSearchBox,hideSignInModal,showSignUpModal,hideSignUpModal,showSignInModal} from '../../actions/appStateActions'
 
+import { IoMdArrowDropdown } from 'react-icons/io';
+
 const customStyles = {
     content: {
-        minWidth: '500px',
         position: 'fixed',
-        width: '500px',
+        width: 'fit-content',
         top: '50%',
         left: '50%',
         right: 'auto',
@@ -59,16 +61,23 @@ const Header = () => {
     const dispatchSetAlert = setAlert(dispatch);
     const dispatchHideSearchBox = hideSearchBox(dispatch);
     const dispatchUnHideSearchBox = unHideSearchBox(dispatch);
-
+ 
     const dispatchShowSignUpModal= showSignUpModal(dispatch);
     const dispatchShowSignInModal = showSignInModal(dispatch);
     const dispatchHideSignInModal = hideSignInModal(dispatch);
     const dispatchHideSignUpModal = hideSignUpModal(dispatch);
-
+    const size = useWindowSize();
     const [dropdownHidden, setDropdownHidden] = useState(true)
-    
+    const [rightDropDownHidden, setRightDropDownHidden] = useState(true)
     const currentlySelected = state.search.searchBy;
     const placeholderText = `Search by ${currentlySelected}`
+    
+
+    useEffect(()=>{
+        if(size.width > 768){
+            setRightDropDownHidden(true);
+        }
+    },[size.width])
 
     useEffect(()=>{
         if(constants.HIDE_SEARCHBAR_PAGES.some(x => x.test(location.pathname))){
@@ -164,12 +173,12 @@ const Header = () => {
         <div className={styles.header}>
             <nav className={styles.navBar}>
                 <div className={styles.left}>
-                    <Link to={constants.PATHS.DASHBOARD} className={styles.headingLink}><h1 className={styles.heading} data-testid="title"><span className={styles.light}>Crowd</span>Funding</h1></Link>
+                    <Link to={constants.PATHS.DASHBOARD} className={styles.headingLink}><h1 className={styles.shorterHeading} ><span className={styles.light}>C</span>F</h1><h1 className={styles.heading} ><span className={styles.light}>Crowd</span>Funding</h1></Link>
                     {!state.appState.hideSearchBox && <div className={styles.searchForm}>
                         <div className={styles.selectText} onClick={handleDropdown}>
                             <p>{currentlySelected}</p>
                             <FaArrowDown className={styles.dropIcon}/>
-                            <ul className={dropdownHidden ? styles.ulClose : styles.ulOpen}>
+                            <ul data-testid="searchDropdown" className={dropdownHidden ? styles.ulClose : styles.ulOpen}>
 
                                 {values(constants.SEARCH_BY_TYPES).map(text => <li key={text} onClick={handleDropdownSelection} className={styles.options}>{text}</li>)}
                             </ul>
@@ -178,11 +187,16 @@ const Header = () => {
                     </div>}
                 </div>
                 <div className={styles.right}>
-                    <button className={styles.navRightBtnSpcl} onClick={handleStartProjectClick}>Start a project</button>
-                    {state && !state.session.currentUser && <button className={styles.navRightBtn} onClick={handleSignInOpen}>SignIn</button>}
-                    {state && !state.session.currentUser && <button className={styles.navRightBtn} onClick={handleSignUpOpen}>SignUp</button>}
-                    {state && state.session.currentUser && <div onClick={handleLinkToProfile} className={styles.profileBox}><FaUserCircle></FaUserCircle><button className={`${styles.navRightBtn} ${styles.navRightBtnProfile}`} >{state.session.currentUser.firstName}</button></div>}
-                    {state && state.session.currentUser && <button className={styles.navRightBtn} onClick={handleLogout}>Logout</button>}
+                    <div className={styles.rightDropDown}>
+                       <IoMdArrowDropdown className={styles.rightDropIcon} onClick={()=> setRightDropDownHidden(!rightDropDownHidden)}></IoMdArrowDropdown>
+                       <ul className={rightDropDownHidden ? styles.rightDropDownUlOpen : styles.rightDropDownUlClose}>
+                            <li><button className={styles.navRightBtnSpcl} onClick={handleStartProjectClick}>Start a project</button></li>
+                            {state && !state.session.currentUser && <li><button className={styles.navRightBtn} onClick={handleSignInOpen}>SignIn</button></li>}
+                            {state && !state.session.currentUser && <li><button className={styles.navRightBtn} onClick={handleSignUpOpen}>SignUp</button></li>}
+                            {state && state.session.currentUser && <li><div onClick={handleLinkToProfile} className={styles.profileBox}><FaUserCircle></FaUserCircle><button className={`${styles.navRightBtn} ${styles.navRightBtnProfile}`} >{state.session.currentUser.firstName}</button></div></li>}
+                            {state && state.session.currentUser && <li><button className={styles.navRightBtn} onClick={handleLogout}>Logout</button></li>}
+                       </ul>
+                    </div>
                     {
                         <Modal
                             ariaHideApp={false}
@@ -192,7 +206,8 @@ const Header = () => {
                             contentLabel="">
                             {!state.appState.hideSignIn && <SignIn handleSignUpPageClick={handleSignUpPageClick} handleModalClose={handleModalClose} />}
                             {!state.appState.hideSignUp && <SignUp handleSignInPageClick={handleSignInPageClick} />}
-                        </Modal>}
+                        </Modal>
+                    }
                 </div>
             </nav>
         </div>

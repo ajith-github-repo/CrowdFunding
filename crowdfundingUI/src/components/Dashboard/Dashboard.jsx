@@ -69,7 +69,7 @@ const Dashboard = () => {
     return (
         
             <div className={styles.homepageDiscovery}>
-                <div className={styles.campsDiscoverBar}>
+                <div className={styles.projectsDiscoverBar}>
                     <ul className={styles.projects}>{tiles}</ul>
                 </div>
                 <div className={styles.fetchMore}>
