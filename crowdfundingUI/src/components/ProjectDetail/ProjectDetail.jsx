@@ -125,10 +125,10 @@ const ProjectDetail = () => {
       }
 
 
-    const renderImageBox = (image_url) => {
+    const renderImageBox = (image_url,title) => {
         return (
           <div className={styles.mediaBox}>
-            <img src={`${image_url}`} />
+            <img src={`${image_url}`} alt={`Product image of ${title}`}/>
           </div>
         );
       }
@@ -139,7 +139,7 @@ const ProjectDetail = () => {
         return (
           <div className={styles.projectSummaryDiv}>
             <div className={styles.projectSummaryCont}>
-              {renderImageBox(project.imageUrl)}
+              {renderImageBox(project.imageUrl,project.title)}
               <div className={styles.projShowHeader}>
                 <div className={styles.projectTitle}>{project.title}</div>
                 <div className={styles.projectTagline}>{project.tagLine}</div>
@@ -258,7 +258,7 @@ const ProjectDetail = () => {
         const imageUrl = `https://avatars.dicebear.com/api/human/${innovator.firstName}.svg`
         return (
           <div className={styles.projectInnovator}>
-            <img src={`${imageUrl}`} className={styles.innovatorPic}/>
+            <img src={`${imageUrl}`} className={styles.innovatorPic} alt={`Profile Image of ${innovator.firstName}`}/>
             <div className={styles.innovatorDetails}>
               <div className={styles.detailsName}>
                 {innovator.firstName} {innovator.lastName}

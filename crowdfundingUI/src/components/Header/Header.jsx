@@ -183,7 +183,7 @@ const Header = () => {
                                 {values(constants.SEARCH_BY_TYPES).map(text => <li key={text} onClick={handleDropdownSelection} className={styles.options}>{text}</li>)}
                             </ul>
                         </div>
-                        <input placeholder={placeholderText} onChange= {handleOnSearchTextChange} className={`${styles.navSearchBar} ${styles.navSearchInput}`} ></input><FaSearch className={styles.searchIcon}></FaSearch>
+                        <input placeholder={placeholderText} onChange= {handleOnSearchTextChange} aria-label="Search Box" className={`${styles.navSearchBar} ${styles.navSearchInput}`} ></input><FaSearch className={styles.searchIcon}></FaSearch>
                     </div>}
                 </div>
                 <div className={styles.right}>
